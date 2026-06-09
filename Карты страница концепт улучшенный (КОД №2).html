@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Как оформить корпоративную топливную карту «Роснефть» | B2B Руководство, ЭДО и API</title>
+    <meta name="description" content="Исчерпывающее руководство для ИП и юридических лиц: дистанционный выпуск виртуальных карт, управление лимитами по REST API, легальное возмещение 22% НДС и глубокая интеграция с 1С УАТ и SAP.">
+    <style>
+        /* ================= БАЗОВЫЕ СТИЛИ И ПЕРЕМЕННЫЕ ================= */
+        :root {
+            --primary-color: #004b87; /* Корпоративный синий */
+            --primary-dark: #002244;
+            --accent-color: #fca311; /* Акцентный оранжевый/золотой */
+            --accent-hover: #e08e0b;
+            --bg-light: #f4f7f9;
+            --bg-white: #ffffff;
+            --text-main: #333333;
+            --text-muted: #555555;
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .bg-light { background-color: var(--bg-light); }
+
+        h2 {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        p { margin-bottom: 16px; }
+
+        /* ================= КНОПКИ ================= */
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+        }
+
+        .btn-outline:hover {
+            background-color: #fff;
+            color: var(--primary-color);
+        }
+
+        /* ================= БЛОК 1: HERO (HEADER) ================= */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+            color: #fff;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 44px;
+            margin-bottom: 24px;
+            line-height: 1.25;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero .subtitle {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            color: #e2e8f0;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ================= СЕТКИ И СПЛИТ-БЛОКИ ================= */
+        .split-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .split-wrapper.reverse-layout {
+            flex-direction: row-reverse;
+        }
+
+        .split-content { flex: 1; }
+        
+        .split-visual {
+            flex: 1;
+            background: #e2e8f0;
+            min-height: 350px;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-weight: bold;
+            border: 2px dashed #cbd5e1;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* ================= БЛОК 2: HOW-TO (ШАГИ) ================= */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .step-card {
+            background: var(--bg-white);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .step-num {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--bg-light);
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            line-height: 1;
+        }
+
+        .step-card h3 {
+            font-size: 20px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-card p {
+            color: var(--text-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ================= СПИСКИ (ФИЧИ) ================= */
+        .feature-list {
+            list-style: none;
+            margin-top: 24px;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 24px;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-color);
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .feature-list h4 {
+            font-size: 18px;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+
+        .feature-list p {
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        /* Список с цифрами (для механики АЗС) */
+        .chrono-list {
+            list-style-type: decimal;
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+        
+        .chrono-list li {
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            padding-left: 10px;
+        }
+
+        /* ================= БЛОК 4: ТАБЫ (USE CASES) ================= */
+        .tabs-container-inner {
+            background: var(--bg-white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            margin-top: 40px;
+        }
+
+        .tabs-nav {
+            display: flex;
+            background-color: var(--bg-light);
+            border-bottom: 1px solid #e2e8f0;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .tabs-nav::-webkit-scrollbar { display: none; }
+
+        .tab-btn {
+            flex: 1;
+            min-width: max-content;
+            padding: 20px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--accent-color);
+            background-color: var(--bg-white);
+        }
+
+        .tab-panels { padding: 40px; }
+        
+        .tab-panel {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .tab-panel.active { display: flex; gap: 40px; align-items: center; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ================= БЛОК 8: FAQ ================= */
+        .faq-wrapper {
+            max-width: 800px;
+            margin: 40px auto 0;
+        }
+
+        details {
+            background: var(--bg-white);
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        summary {
+            padding: 20px;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-color);
+            cursor: pointer;
+            list-style: none;
+            position: relative;
+            padding-right: 50px;
+        }
+
+        summary::after {
+            content: '+';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+        }
+
+        details[open] summary::after { content: '−'; }
+
+        details p {
+            padding: 0 20px 20px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* ================= АДАПТИВНОСТЬ ================= */
+        @media (max-width: 992px) {
+            .split-wrapper, .split-wrapper.reverse-layout, .tab-panel.active {
+                flex-direction: column;
+            }
+            .steps-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 34px; }
+            .split-visual { width: 100%; height: 250px; min-height: 250px; }
+        }
+
+        @media (max-width: 576px) {
+            .hero-actions { flex-direction: column; }
+            .btn { width: 100%; }
+            .tab-panels { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- БЛОК 1: HERO HUB INFORMATION -->
+    <header class="hero gradient-bg" id="hero_hub_information">
+        <div class="container">
+            <h1>Как оформить топливную карту «Роснефть» и начать оптимизировать расходы автопарка</h1>
+            <p class="subtitle">Подробное руководство для бизнеса: от дистанционного выпуска виртуальных карт в SaaS-кабинете и настройки динамических лимитов до правил заправки на магистральных АЗС и легального возмещения НДС.</p>
+            
+            <div class="hero-actions">
+                <a href="#programs" class="btn">Перейти к оформлению (Выбор тарифа)</a>
+                <a href="#how-to" class="btn btn-outline">Читать руководство экспертов ↓</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- БЛОК 2: ONBOARDING ALGORITHM (HOW-TO) -->
+    <section class="how-to steps-wrapper bg-light" id="how-to" itemscope itemtype="http://schema.org/HowTo">
+        <div class="container">
+            <h2 itemprop="name" style="text-align: center;">Алгоритм внедрения: как выпустить топливную карту для бизнеса</h2>
+            
+            <div class="steps-grid">
+                <!-- Шаг 1 -->
+                <div class="step-card" itemprop="step" itemscope itemtype="http://schema.org/HowToStep">
+                    <div class="step-num">01</div>
+                    <h3 itemprop="name">Анализ и выбор программы</h3>
+                    <p itemprop="text">Ознакомьтесь с тарифными планами в каталоге. Рассчитайте прогнозную себестоимость рейса с учетом географии работы ваших транспортных средств и выберите оптимальные условия.</p>
+                </div>
+                <!-- Шаг 2 -->
+                <div class="step-card" itemprop="step" itemscope itemtype="http://schema.org/HowToStep">
+                    <div class="step-num">02</div>
+                    <h3 itemprop="name">Заключение договора через ЭДО</h3>
+                    <p itemprop="text">Пройдите регистрацию и подпишите корпоративный договор дистанционно, используя системы электронного документооборота (Диадок или СБИС). Полный отказ от бумажной волокиты.</p>
+                </div>
+                <!-- Шаг 3 -->
+                <div class="step-card" itemprop="step" itemscope itemtype="http://schema.org/HowToStep">
+                    <div class="step-num">03</div>
+                    <h3 itemprop="name">Генерация виртуальных карт</h3>
+                    <p itemprop="text">Пополните единый лицевой счет компании. В облачном Личном кабинете моментально сгенерируйте виртуальные карты для водителей, установите лимиты или закажите доставку физического пластика.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК 3: ЭКОНОМИКА ВЛАДЕНИЯ (TCO & ROI) -->
+    <section class="economics" id="economics_tco_and_roi">
+        <div class="container split-wrapper">
+            <div class="split-content">
+                <h2>Как выгодно заправляться: Экономика владения автопарком (TCO)</h2>
+                <p>Эффективность использования корпоративных топливных карт измеряется не поверхностными скидками, а комплексным снижением издержек предприятия, возвратом налогов и защитой от фрода.</p>
+                
+                <ul class="feature-list">
+                    <li>
+                        <h4>Легальный возврат НДС 22%</h4>
+                        <p>Гарантированная финансовая экономия за счет получения сводных фискальных документов (УПД). Забудьте о ручном сборе утерянных кассовых чеков с АЗС.</p>
+                    </li>
+                    <li>
+                        <h4>Оптимизация логистических маршрутов</h4>
+                        <p>Радикальное сокращение перепробегов автотранспорта с помощью интеллектуального локатора АЗС, что напрямую снижает итоговую себестоимость каждого рейса.</p>
+                    </li>
+                    <li>
+                        <h4>Финансовый контроль и отсрочка</h4>
+                        <p>Абсолютная защита от несанкционированных сливов дизеля через установку строгих лимитов на вид топлива. Надежным партнерам доступна отсрочка платежа.</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="split-visual">
+                [Инфографика: Декомпозиция экономии TCO (Возмещение НДС, снижение перепробегов, контроль сливов)]
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК 4: ОТРАСЛЕВЫЕ СЦЕНАРИИ (TABS) -->
+    <section class="use-cases interactive-block bg-light" id="industry_use_cases_tabs">
+        <div class="container">
+            <h2 style="text-align: center;">Отраслевые сценарии: Как топливные карты решают задачи вашего бизнеса</h2>
+            
+            <div class="tabs-container-inner">
+                <!-- Навигация -->
+                <div class="tabs-nav">
+                    <button class="tab-btn active" data-tab="tab-logistics">Магистральные грузоперевозки</button>
+                    <button class="tab-btn" data-tab="tab-taxi">Таксопарки и доставка</button>
+                    <button class="tab-btn" data-tab="tab-construction">Строительство и спецтехника</button>
+                    <button class="tab-btn" data-tab="tab-government">Государственные учреждения</button>
+                </div>
+
+                <!-- Контент -->
+                <div class="tab-panels">
+                    <!-- Tab 1 -->
+                    <div class="tab-panel active" id="tab-logistics">
+                        <div class="split-content">
+                            <h3 style="color: var(--primary-color); margin-bottom: 15px;">Тотальный контроль на трассе и транзитные тарифы</h3>
+                            <p>Настройте строгие лимиты на вид топлива (исключительно ДТ) и суточный объем заправки. Функция построения маршрутов в приложении исключает холостые пробеги тяжеловозов, а специализированная программа «Транзитная» обеспечивает максимальную скидку на трассовых АЗС. Полная защита бизнеса от несанкционированных сливов дизеля.</p>
+                        </div>
+                        <div class="split-visual">[Иллюстрация: Грузовик / Трасса]</div>
+                    </div>
+
+                    <!-- Tab 2 -->
+                    <div class="tab-panel" id="tab-taxi">
+                        <div class="split-content">
+                            <h3 style="color: var(--primary-color); margin-bottom: 15px;">Мгновенный онбординг и виртуализация процессов</h3>
+                            <p>Не ждите физический пластик. Выпускайте виртуальные топливные карты для новых курьеров и водителей за 1 минуту прямо в Личном кабинете SaaS-платформы. Интеграция по API позволяет связать тысячи микро-транзакций с вашей CRM-системой в реальном времени, что идеально решает проблему высокой текучки кадров.</p>
+                        </div>
+                        <div class="split-visual">[Иллюстрация: Смартфон курьера]</div>
+                    </div>
+
+                    <!-- Tab 3 -->
+                    <div class="tab-panel" id="tab-construction">
+                        <div class="split-content">
+                            <h3 style="color: var(--primary-color); margin-bottom: 15px;">Прозрачный консолидированный учет и возврат 22% НДС</h3>
+                            <p>Обеспечьте полную финансовую прозрачность для бухгалтерии при работе экскаваторов и бульдозеров вне дорог общего пользования. Автоматическое формирование единого УПД на весь парк спецтехники и выгрузка данных в 1С через ЭДО. Гарантированная защита от налоговых рисков и возмещение НДС.</p>
+                        </div>
+                        <div class="split-visual">[Иллюстрация: Бухгалтерия / 1С УПД]</div>
+                    </div>
+
+                    <!-- Tab 4 -->
+                    <div class="tab-panel" id="tab-government">
+                        <div class="split-content">
+                            <h3 style="color: var(--primary-color); margin-bottom: 15px;">Соблюдение регламентов по 44-ФЗ и 223-ФЗ</h3>
+                            <p>Специализированные тендерные условия для бюджетных и муниципальных учреждений. Поддержка персонального менеджера в подготовке документации, предоставление отсрочки платежа и строгий многоуровневый контроль расходования бюджетных средств через лимитирование.</p>
+                        </div>
+                        <div class="split-visual">[Иллюстрация: Документация ФЗ]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК 5: ТЕХНОЛОГИИ (ERP & API) -->
+    <section class="saas-integration tech-focus" id="technological_erp_integration">
+        <div class="container split-wrapper">
+            <div class="split-visual">
+                [Схема: Архитектура API / Синхронизация с SAP и 1С]
+            </div>
+            <div class="split-content">
+                <h2>Программный доступ, Web API и интеграция с ERP</h2>
+                <p>Современная облачная SaaS-платформа предоставляет мощный интеграционный шлюз для автоматизации процессов автопарка. Забудьте о ручном вводе транзакций и дублировании данных в системах учета.</p>
+                
+                <ul class="feature-list">
+                    <li>
+                        <h4>Динамическая синхронизация лимитов</h4>
+                        <p>Управляйте лимитами программно: повышайте или понижайте ограничения по конкретным картам через API в режиме реального времени на основе данных телематики.</p>
+                    </li>
+                    <li>
+                        <h4>Коннекторы для 1С: УАТ и SAP</h4>
+                        <p>Используйте сертифицированные модули экспорта транзакций и бесшовной интеграции с 1С: Управление автотранспортом (УАТ) и корпоративными учетными системами SAP.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК 6: ИНСТРУКЦИЯ ДЛЯ ВОДИТЕЛЯ -->
+    <section class="driver-guide bg-light" id="driver_operational_mechanics">
+        <div class="container split-wrapper reverse-layout">
+            <div class="split-content">
+                <h2>Механика работы на АЗС: Инструкция для водителя</h2>
+                <p>Процесс корпоративной заправки интуитивно понятен линейному персоналу и не требует сложного обучения:</p>
+                
+                <ol class="chrono-list">
+                    <li><strong>Локация:</strong> Водитель открывает интеллектуальный локатор АЗС в мобильном приложении, чтобы проложить маршрут к ближайшей станции сети «Роснефть» с учетом цен и наличия ДТ.</li>
+                    <li><strong>Процесс оплаты:</strong> На кассе водитель предупреждает оператора об оплате корпоративной топливной картой. Предъявляет классический пластиковый носитель или прикладывает смартфон с виртуальной картой к терминалу.</li>
+                    <li><strong>Списание:</strong> Денежные средства или литры списываются с корпоративного лицевого счета автоматически. Транзакционный отчет мгновенно синхронизируется с облачным кабинетом диспетчера.</li>
+                </ol>
+            </div>
+            <div class="split-visual">
+                [Фото: Водитель на кассе АЗС]
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК 7: ВИРТУАЛЬНЫЕ КАРТЫ -->
+    <section class="virtual-cards" id="virtual_cards_smartphone">
+        <div class="container split-wrapper">
+            <div class="split-content">
+                <h2>Виртуальные карты: Мгновенная доставка в смартфон водителя</h2>
+                <p>Откажитесь от ожидания курьерской доставки физических носителей. Платформа «РН-Карт» позволяет осуществлять полностью цифровой онбординг.</p>
+                <p>Как только администратор предприятия генерирует новую виртуальную карту в Личном кабинете, она <strong>моментально интегрируется в официальное мобильное приложение</strong> на смартфоне водителя.</p>
+                <p>Оплата на кассе происходит бесконтактно (по динамическому штрихкоду/QR или NFC), что гарантирует безопасность и исключает риск физической потери карты.</p>
+                
+                <div style="margin-top: 30px;">
+                    <a href="/turn/service/driver-app/" class="btn">Подробнее о мобильном приложении для водителей</a>
+                </div>
+            </div>
+            <div class="split-visual" style="max-width: 350px; border-radius: 30px; height: 450px; margin: 0 auto;">
+                [Мокап смартфона с приложением водителя]
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК 8: FAQ SCHEMA -->
+    <section class="faq-section bg-light" id="expert_faq_schema" itemscope itemtype="http://schema.org/FAQPage">
+        <div class="container">
+            <h2 style="text-align: center;">Экспертные ответы на частые вопросы бизнеса</h2>
+            
+            <div class="faq-wrapper">
+                <!-- Вопрос 1 -->
+                <details itemscope itemprop="mainEntity" itemtype="http://schema.org/Question">
+                    <summary itemprop="name">Можно ли обналичить средства с топливной карты?</summary>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
+                        <p itemprop="text">Нет. Топливная карта не является финансовым банковским инструментом (электронным кошельком). Она представляет собой средство строгой целевой отчетности B2B, предназначенное исключительно для безналичной оплаты ГСМ и сопутствующих услуг на территории сети АЗС.</p>
+                    </div>
+                </details>
+
+                <!-- Вопрос 2 -->
+                <details itemscope itemprop="mainEntity" itemtype="http://schema.org/Question">
+                    <summary itemprop="name">Какой тарифной программой выгоднее заправляться на АЗС?</summary>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
+                        <p itemprop="text">Экономическая выгода напрямую коррелирует с географией ваших рейсов и спецификой транспорта. Для логистических компаний, осуществляющих транзитные грузоперевозки, разработаны тарифы с максимальным дисконтом на трассовых АЗС. Для локальных городских служб доставки предусмотрены оптимальные городские решения. Рекомендуем изучить каталог топливных программ для точного расчета.</p>
+                    </div>
+                </details>
+
+                <!-- Вопрос 3 -->
+                <details itemscope itemprop="mainEntity" itemtype="http://schema.org/Question">
+                    <summary itemprop="name">Взимается ли абонентская плата за использование SaaS-сервиса?</summary>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="http://schema.org/Answer">
+                        <p itemprop="text">Политика прозрачного ценообразования полностью исключает скрытые списания. Структура стоимости обслуживания, включая возможную абонентскую плату, четко регламентируется выбранным тарифным планом и зависит от совокупного ежемесячного объема потребления топлива вашим предприятием.</p>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Скрипт для работы вкладок (Блок 4) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Удаляем активные классы
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabPanels.forEach(p => p.classList.remove('active'));
+
+                    // Добавляем активный класс нажатой кнопке
+                    btn.classList.add('active');
+
+                    // Показываем нужную панель
+                    const targetId = btn.getAttribute('data-tab');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
