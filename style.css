@@ -1,407 +1,414 @@
- /* ================= БАЗОВЫЕ СТИЛИ И ПЕРЕМЕННЫЕ ================= */
-        :root {
-            --primary-color: #004b87; /* Корпоративный синий */
-            --primary-dark: #002244; /* Тёмный */
-            --primary-black: #000; /* Чёрный */
-            --accent-color: #fca311; /* Акцентный оранжевый/золотой */
-            --accent-hover: #e08e0b;
-            --bg-light: #f4f7f9;
-            --bg-white: #ffffff;
-            --text-main: #333333;
-            --text-muted: #555555;
-            --border-radius: 12px;
-            --transition: all 0.3s ease;
-            --step-color: #686868;
-        }
+/* ================= БАЗОВЫЕ СТИЛИ И ПЕРЕМЕННЫЕ ================= */
+:root {
+    --primary-color: #004b87; 
+    --primary-dark: #002244; 
+    --primary-black: #000000; /* Истинный черный */
+    --accent-color: #fca311; 
+    --accent-hover: #e08e0b;
+    --bg-light: #f4f7f9;
+    --bg-white: #ffffff;
+    --border-radius: 12px;
+    --transition: all 0.3s ease;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text-main);
-            background-color: var(--bg-white);
-        }
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--primary-black); /* Текст черный */
+    background-color: var(--bg-white);
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
 
-        section {
-            padding: 80px 0;
-        }
+section {
+    padding: 80px 0;
+}
 
-        .bg-light { background-color: var(--bg-light); }
+.bg-light { background-color: var(--bg-light); }
 
-        h2 {
-            font-size: 32px;
-            color: var(--primary-black);
-            margin-bottom: 20px;
-            line-height: 1.3;
-        }
+/* Все заголовки строго черные */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-black);
+}
 
-        p { margin-bottom: 16px; }
+h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
 
-        /* ================= КНОПКИ ================= */
-        .btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: #fff;
-            padding: 16px 32px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 16px;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            text-align: center;
-        }
+p { margin-bottom: 16px; color: var(--primary-black); }
 
-        .btn:hover {
-            background-color: var(--accent-hover);
-            transform: translateY(-2px);
-        }
+/* ================= КНОПКИ ================= */
+.btn {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: #fff;
+    padding: 16px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
 
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid #fff;
-            color: #fff;
-        }
+.btn:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+}
 
-        .btn-outline:hover {
-            background-color: #fff;
-            color: var(--primary-color);
-        }
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+}
 
-        /* ================= БЛОК 1: HERO (HEADER) ================= */
-        .hero {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
-            color: #fff;
-            padding: 100px 0;
-            text-align: center;
-        }
+.btn-outline:hover {
+    background-color: #fff;
+    color: var(--primary-black);
+}
 
-        .hero h1 {
-            font-size: 44px;
-            margin-bottom: 24px;
-            line-height: 1.25;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+.btn-yellow {
+    display: inline-block;
+    background-color: #FFD700;
+    color: var(--primary-black);
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    margin-top: 16px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+}
 
-        .hero .subtitle {
-            font-size: 18px;
-            max-width: 800px;
-            margin: 0 auto 40px auto;
-            color: #e2e8f0;
-        }
+.btn-yellow:hover {
+    background-color: #FFC107;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 193, 7, 0.4);
+}
 
-        .hero-actions {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+/* ================= БЛОК 1: HERO (HEADER) ================= */
+.hero {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+    color: #fff;
+    padding: 100px 0;
+    text-align: center;
+}
 
-     
+/* Исключение для Hero: текст должен быть белым, чтобы читаться на темном фоне */
+.hero h1 {
+    font-size: 44px;
+    margin-bottom: 24px;
+    line-height: 1.25;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #ffffff; 
+}
 
-        /* ================= СЕТКИ И СПЛИТ-БЛОКИ ================= */
-        .split-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 50px;
-        }
+.hero .subtitle {
+    font-size: 18px;
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    color: #ffffff;
+}
 
-        .split-wrapper.reverse-layout {
-            flex-direction: row-reverse;
-        }
+.hero-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
 
-        .split-content { flex: 1; }
-        
-        .split-visual {
-            flex: 1;
-            background: #e2e8f0;
-            min-height: 350px;
-            border-radius: var(--border-radius);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #94a3b8;
-            font-weight: bold;
-            border: 2px dashed #cbd5e1;
-            text-align: center;
-            padding: 20px;
-        }
+/* ================= СЕТКИ И СПЛИТ-БЛОКИ ================= */
+.split-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
 
-        /* ================= БЛОК 2: HOW-TO (ШАГИ) ================= */
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 40px;
-        }
+.split-wrapper.reverse-layout {
+    flex-direction: row-reverse;
+}
 
-        .step-card {
-            background: var(--bg-white);
-            padding: 30px;
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            position: relative;
-            list-style: none;
-        }
+.split-content { flex: 1; }
 
-       .step-card h3 {
-            font-size: 20px;
-            color: var(--primary-black);
-            margin-bottom: 15px;
-            position: relative;
-            z-index: 1;
-        }
+.split-visual {
+    flex: 1;
+    background: #e2e8f0;
+    min-height: 350px;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-black);
+    font-weight: bold;
+    border: 2px dashed #cbd5e1;
+    text-align: center;
+    padding: 20px;
+}
 
-        .step-card p {
-            color: var(--primary-black);
-            position: relative;
-            z-index: 1;
-        }
+/* ================= БЛОК 2: HOW-TO (ШАГИ) ================= */
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
 
-        .step-num {
-                  font-size: 16px;
-                  font-weight: 800;
-                  color: var(--step-color);
-                  line-height: 1;
-              }
+.step-card {
+    background: var(--bg-white);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    position: relative;
+    list-style: none;
+}
 
-        /* ================= СПИСКИ (ФИЧИ) ================= */
-        .feature-list {
-            list-style: none;
-            margin-top: 24px;
-        }
+.step-card h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+}
 
-        .feature-list li {
-            position: relative;
-            padding-left: 35px;
-            margin-bottom: 24px;
-        }
+.step-num {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--primary-black);
+    line-height: 1;
+    margin-bottom: 10px;
+}
 
-        .feature-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: var(--accent-color);
-            font-size: 20px;
-            font-weight: bold;
-        }
+.content-list {
+    margin-left: 20px;
+    margin-bottom: 15px;
+    color: var(--primary-black);
+}
 
-        .feature-list h4 {
-            font-size: 18px;
-            color: var(--primary-dark);
-            margin-bottom: 5px;
-        }
+.content-list li {
+    margin-bottom: 10px;
+}
 
-        .feature-list p {
-            color: var(--text-muted);
-            margin-bottom: 0;
-        }
+/* ================= СПИСКИ (ФИЧИ) ================= */
+.feature-list {
+    list-style: none;
+    margin-top: 24px;
+}
 
-        /* Список с цифрами (для механики АЗС) */
-        .chrono-list {
-            list-style-type: decimal;
-            margin-left: 20px;
-            margin-top: 20px;
-        }
-        
-        .chrono-list li {
-            margin-bottom: 15px;
-            color: var(--text-muted);
-            padding-left: 10px;
-        }
+.feature-list > li {
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 24px;
+}
 
-        /* ================= БЛОК 4: ТАБЫ (USE CASES) ================= */
-        .tabs-container-inner {
-            background: var(--bg-white);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
-            margin-top: 40px;
-        }
+.feature-list > li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--accent-color);
+    font-size: 20px;
+    font-weight: bold;
+}
 
-        .tabs-nav {
-            display: flex;
-            background-color: var(--bg-light);
-            border-bottom: 1px solid #e2e8f0;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
-        .tabs-nav::-webkit-scrollbar { display: none; }
+.feature-list h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
 
-        .tab-btn {
-            flex: 1;
-            min-width: max-content;
-            padding: 20px;
-            background: transparent;
-            border: none;
-            border-bottom: 3px solid transparent;
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: var(--transition);
-        }
+/* ================= СОВЕТ ЭКСПЕРТА ================= */
+.expert-advice {
+    background-color: #fff9e6;
+    border-left: 5px solid var(--accent-color);
+    padding: 25px;
+    margin: 40px 0;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
 
-        .tab-btn.active {
-            color: var(--primary-color);
-            border-bottom-color: var(--accent-color);
-            background-color: var(--bg-white);
-        }
+.expert-advice p {
+    margin-bottom: 0;
+}
 
-        .tab-panels { padding: 40px; }
-        
-        .tab-panel {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-        
-        .tab-panel.active { display: flex; gap: 40px; align-items: center; }
+/* ================= ТАБЛИЦЫ ================= */
+.table-responsive {
+    overflow-x: auto;
+    margin: 40px 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-radius: var(--border-radius);
+}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-white);
+}
 
-      /* Блок 5.1: Технологические партнеры и интеграции */
-      .partners-section {
-          padding: 60px 0;
-          background-color: var(--bg-white, #ffffff);
-          border-top: 1px solid #e2e8f0;
-          border-bottom: 1px solid #e2e8f0;
-      }
-      
-      .partners-section h2 {
-          text-align: center;
-          font-size: 26px;
-          color: var(--primary-black);
-          margin-bottom: 40px;
-          font-weight: 600;
-      }
-      
-      .partners-grid {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 80px;
-          flex-wrap: wrap;
-      }
+.data-table th, .data-table td {
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+    color: var(--primary-black);
+    font-size: 15px;
+}
 
-      /* Стили для адаптивных изображений логотипов */
-      .partner-logo-img {
-          max-width: 100%;       /* Адаптивность: картинка не выйдет за пределы контейнера */
-          height: auto;          /* Сохранение пропорций */
-          max-height: 150px;      /* Ограничение высоты, чтобы логотипы смотрелись аккуратно в один ряд */
-          object-fit: contain;
-          transition: all 0.3s ease;
-      }
-      
-      /* Возвращаем оригинальные цвета при наведении */
-      .partner-logo-img:hover {
-          filter: grayscale(0%) opacity(1);
-      }
+.data-table th {
+    background-color: #e2e8f0;
+    font-weight: 700;
+}
 
-      /* Адаптивность для мобильных устройств */
-            @media (max-width: 768px) {
-                .partners-grid {
-                    gap: 40px;
-                    flex-direction: column;
-                }
-            }
+.data-table tr:last-child td {
+    border-bottom: none;
+}
 
-        /* ================= БЛОК 8: FAQ ================= */
-        .faq-wrapper {
-            max-width: 800px;
-            margin: 40px auto 0;
-        }
+/* ================= БЛОК 4: ТАБЫ (USE CASES) ================= */
+.tabs-container-inner {
+    background: var(--bg-white);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+    margin-top: 40px;
+}
 
-        details {
-            background: var(--bg-white);
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            margin-bottom: 16px;
-            overflow: hidden;
-        }
+.tabs-nav {
+    display: flex;
+    background-color: var(--bg-light);
+    border-bottom: 1px solid #e2e8f0;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.tabs-nav::-webkit-scrollbar { display: none; }
 
-        summary {
-            padding: 20px;
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--primary-black);
-            cursor: pointer;
-            list-style: none;
-            position: relative;
-            padding-right: 50px;
-        }
+.tab-btn {
+    flex: 1;
+    min-width: max-content;
+    padding: 20px;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--primary-black);
+    cursor: pointer;
+    transition: var(--transition);
+}
 
-        summary::after {
-            content: '+';
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 24px;
-        }
+.tab-btn.active {
+    border-bottom-color: var(--accent-color);
+    background-color: var(--bg-white);
+}
 
-        details[open] summary::after { content: '−'; }
+.tab-panels { padding: 40px; }
 
-        details p {
-            padding: 0 20px 20px;
-            color: var(--primary-black);
-            margin: 0;
-        }
+.tab-panel {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
 
-        /* ================= АДАПТИВНОСТЬ ================= */
-        @media (max-width: 992px) {
-            .split-wrapper, .split-wrapper.reverse-layout, .tab-panel.active {
-                flex-direction: column;
-            }
-            .steps-grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 34px; }
-            .split-visual { width: 100%; height: 250px; min-height: 250px; }
-        }
+.tab-panel.active { display: flex; gap: 40px; align-items: center; }
 
-        @media (max-width: 576px) {
-            .hero-actions { flex-direction: column; }
-            .btn { width: 100%; }
-            .tab-panels { padding: 20px; }
-        }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-        /* Локальная жёлтая кнопка для карточек шагов */
-        .btn-yellow {
-            display: inline-block;
-            background-color: #FFD700; /* Жёлтый цвет */
-            color: #333333; /* Тёмный текст для контраста и читаемости */
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            margin-top: 16px; /* Отступ от абзаца выше */
-            border: none;
-            cursor: pointer;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
-        }
-        
-        .btn-yellow:hover {
-            background-color: #FFC107; /* Более насыщенный жёлтый при наведении */
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(255, 193, 7, 0.4);
-        }
+/* ================= БЛОК 5.1: ПАРТНЕРЫ ================= */
+.partners-section {
+    padding: 60px 0;
+    background-color: var(--bg-white);
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.partners-section h2 {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+.partners-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+    flex-wrap: wrap;
+}
+
+.partner-logo-img {
+    max-width: 100%;       
+    height: auto;          
+    max-height: 150px;      
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+/* ================= БЛОК 8: FAQ (АДАПТАЦИЯ РАЗМЕТКИ) ================= */
+.faq-section {
+    padding: 80px 0;
+}
+
+.accordion {
+    max-width: 900px;
+    margin: 40px auto 0;
+}
+
+.accordion-item {
+    background: var(--bg-white);
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+.accordion-item h3 {
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+.accordion-item p {
+    margin-bottom: 10px;
+    color: var(--primary-black);
+}
+
+/* ================= АДАПТИВНОСТЬ ================= */
+@media (max-width: 992px) {
+    .split-wrapper, .split-wrapper.reverse-layout, .tab-panel.active {
+        flex-direction: column;
+    }
+    .steps-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 34px; }
+    .split-visual { width: 100%; height: 250px; min-height: 250px; }
+}
+
+@media (max-width: 768px) {
+    .partners-grid {
+        gap: 40px;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-actions { flex-direction: column; }
+    .btn { width: 100%; }
+    .tab-panels { padding: 20px; }
+}
