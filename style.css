@@ -276,6 +276,59 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+      /* Блок 5.1: Технологические партнеры и интеграции */
+      .partners-section {
+          padding: 60px 0;
+          background-color: var(--bg-white, #ffffff);
+          border-top: 1px solid #e2e8f0;
+          border-bottom: 1px solid #e2e8f0;
+      }
+      
+      .partners-section h2 {
+          text-align: center;
+          font-size: 26px;
+          color: var(--text-muted, #555555);
+          margin-bottom: 40px;
+          font-weight: 600;
+      }
+      
+      .partners-grid {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 80px;
+          flex-wrap: wrap;
+      }
+      
+      /* Стилизация заглушек для логотипов в монохромном стиле */
+      .partner-logo-placeholder {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 50px;
+          color: #94a3b8; /* Нейтрально-серый цвет (монохром) */
+          font-size: 20px;
+          font-weight: 700;
+          letter-spacing: 0.5px;
+          filter: grayscale(100%) opacity(0.6);
+          transition: all 0.3s ease;
+          cursor: default;
+      }
+      
+      /* Эффект проявления при наведении (опционально, для интерактивности) */
+      .partner-logo-placeholder:hover {
+          filter: grayscale(0%) opacity(1);
+          color: var(--primary-color, #004b87);
+      }
+      
+      /* Адаптивность для мобильных устройств */
+      @media (max-width: 768px) {
+          .partners-grid {
+              gap: 40px;
+              flex-direction: column;
+          }
+      }
+
         /* ================= БЛОК 8: FAQ ================= */
         .faq-wrapper {
             max-width: 800px;
