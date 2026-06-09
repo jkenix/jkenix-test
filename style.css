@@ -1,8 +1,8 @@
  /* ================= БАЗОВЫЕ СТИЛИ И ПЕРЕМЕННЫЕ ================= */
         :root {
             --primary-color: #004b87; /* Корпоративный синий */
-            --primary-dark: #002244;
-            --primary-black: #fff;
+            --primary-dark: #002244; /* Тёмный */
+            --primary-black: #000; /* Чёрный */
             --accent-color: #fca311; /* Акцентный оранжевый/золотой */
             --accent-hover: #e08e0b;
             --bg-light: #f4f7f9;
