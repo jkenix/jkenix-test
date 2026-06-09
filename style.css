@@ -299,34 +299,6 @@
           gap: 80px;
           flex-wrap: wrap;
       }
-      
-      /* Стилизация заглушек для логотипов в монохромном стиле */
-      .partner-logo-placeholder {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 50px;
-          color: #94a3b8; /* Нейтрально-серый цвет (монохром) */
-          font-size: 20px;
-          font-weight: 700;
-          letter-spacing: 0.5px;
-          transition: all 0.3s ease;
-          cursor: default;
-      }
-      
-      /* Эффект проявления при наведении (опционально, для интерактивности) */
-      .partner-logo-placeholder:hover {
-          filter: grayscale(0%) opacity(1);
-          color: var(--primary-color, #004b87);
-      }
-      
-      /* Адаптивность для мобильных устройств */
-      @media (max-width: 768px) {
-          .partners-grid {
-              gap: 40px;
-              flex-direction: column;
-          }
-      }
 
       /* Стили для адаптивных изображений логотипов */
       .partner-logo-img {
@@ -334,7 +306,6 @@
           height: auto;          /* Сохранение пропорций */
           max-height: 150px;      /* Ограничение высоты, чтобы логотипы смотрелись аккуратно в один ряд */
           object-fit: contain;
-          filter: grayscale(100%) opacity(0.6); /* Монохромный/серый стиль */
           transition: all 0.3s ease;
       }
       
@@ -342,6 +313,14 @@
       .partner-logo-img:hover {
           filter: grayscale(0%) opacity(1);
       }
+
+      /* Адаптивность для мобильных устройств */
+            @media (max-width: 768px) {
+                .partners-grid {
+                    gap: 40px;
+                    flex-direction: column;
+                }
+            }
 
         /* ================= БЛОК 8: FAQ ================= */
         .faq-wrapper {
