@@ -110,6 +110,8 @@
             flex-wrap: wrap;
         }
 
+     
+
         /* ================= СЕТКИ И СПЛИТ-БЛОКИ ================= */
         .split-wrapper {
             display: flex;
@@ -167,6 +169,17 @@
             position: relative;
             z-index: 1;
         }
+
+        .step-num {
+                  font-size: 48px;
+                  font-weight: 800;
+                  color: var(--bg-light);
+                  position: absolute;
+                  top: 15px;
+                  right: 20px;
+                  line-height: 1;
+                  display: none;
+              }
 
         /* ================= СПИСКИ (ФИЧИ) ================= */
         .feature-list {
