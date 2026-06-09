@@ -2,7 +2,7 @@
 :root {
     --primary-color: #004b87; 
     --primary-dark: #002244; 
-    --primary-black: #000000; /* Истинный черный */
+    --primary-black: #000000;
     --accent-color: #fca311; 
     --accent-hover: #e08e0b;
     --bg-light: #f4f7f9;
@@ -20,7 +20,7 @@
 body {
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     line-height: 1.6;
-    color: var(--primary-black); /* Текст черный */
+    color: var(--primary-black);
     background-color: var(--bg-white);
 }
 
@@ -36,7 +36,6 @@ section {
 
 .bg-light { background-color: var(--bg-light); }
 
-/* Все заголовки строго черные */
 h1, h2, h3, h4, h5, h6 {
     color: var(--primary-black);
 }
@@ -112,7 +111,6 @@ p { margin-bottom: 16px; color: var(--primary-black); }
     text-align: center;
 }
 
-/* Исключение для Hero: текст должен быть белым, чтобы читаться на темном фоне */
 .hero h1 {
     font-size: 44px;
     margin-bottom: 24px;
@@ -144,6 +142,7 @@ p { margin-bottom: 16px; color: var(--primary-black); }
     gap: 50px;
 }
 
+/* Реверсивная верстка (картинка слева, текст справа) */
 .split-wrapper.reverse-layout {
     flex-direction: row-reverse;
 }
@@ -163,6 +162,21 @@ p { margin-bottom: 16px; color: var(--primary-black); }
     border: 2px dashed #cbd5e1;
     text-align: center;
     padding: 20px;
+}
+
+/* Стили для мокапов из 3 блока */
+.mockup {
+    background-color: #f8fafc;
+    border: 2px dashed #94a3b8;
+    border-radius: 16px;
+}
+
+.mockup-info {
+    color: #475569;
+    font-size: 16px;
+    font-weight: 600;
+    max-width: 80%;
+    line-height: 1.4;
 }
 
 /* ================= БЛОК 2: HOW-TO (ШАГИ) ================= */
@@ -207,6 +221,11 @@ p { margin-bottom: 16px; color: var(--primary-black); }
     margin-bottom: 10px;
 }
 
+/* ================= БЛОК 3: ЭКРАНЫ ЭКОНОМИКИ ================= */
+.economics-screen {
+    padding: 80px 0;
+}
+
 /* ================= СПИСКИ (ФИЧИ) ================= */
 .feature-list {
     list-style: none;
@@ -243,9 +262,7 @@ p { margin-bottom: 16px; color: var(--primary-black); }
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
 }
 
-.expert-advice p {
-    margin-bottom: 0;
-}
+.expert-advice p { margin-bottom: 0; }
 
 /* ================= ТАБЛИЦЫ ================= */
 .table-responsive {
@@ -376,18 +393,49 @@ p { margin-bottom: 16px; color: var(--primary-black); }
     border: 1px solid #e2e8f0;
     border-radius: 8px;
     margin-bottom: 16px;
-    padding: 24px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 }
 
-.accordion-item h3 {
+/* Стили для заголовка аккордеона */
+.accordion-header {
+    padding: 24px;
     font-size: 18px;
-    margin-bottom: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none; /* Убираем стандартный маркер браузера */
+    position: relative;
+    outline: none;
+    color: var(--primary-black);
 }
 
-.accordion-item p {
-    margin-bottom: 10px;
+/* Скрываем стандартный маркер Safari/Chrome */
+.accordion-header::-webkit-details-marker {
+    display: none;
+}
+
+/* Кастомный плюсик */
+.accordion-header::after {
+    content: '+';
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    color: var(--accent-color);
+    transition: transform 0.3s ease;
+}
+
+/* Крестик при открытии */
+details[open] .accordion-header::after {
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.accordion-content {
+    padding: 0 24px 24px;
     color: var(--primary-black);
+    border-top: 1px solid #e2e8f0;
+    margin-top: 10px;
+    padding-top: 16px;
 }
 
 /* ================= АДАПТИВНОСТЬ ================= */
