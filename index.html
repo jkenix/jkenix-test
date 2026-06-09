@@ -342,6 +342,31 @@
             .btn { width: 100%; }
             .tab-panels { padding: 20px; }
         }
+
+        /* Локальная жёлтая кнопка для карточек шагов */
+        .btn-yellow {
+            display: inline-block;
+            background-color: #FFD700; /* Жёлтый цвет */
+            color: #333333; /* Тёмный текст для контраста и читаемости */
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            margin-top: 16px; /* Отступ от абзаца выше */
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+        
+        .btn-yellow:hover {
+            background-color: #FFC107; /* Более насыщенный жёлтый при наведении */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 193, 7, 0.4);
+        }
+                
     </style>
 </head>
 <body>
@@ -353,7 +378,7 @@
             <p class="subtitle">Подробное руководство для бизнеса: от дистанционного выпуска виртуальных карт в SaaS-кабинете и настройки динамических лимитов до правил заправки на магистральных АЗС и легального возмещения НДС.</p>
             
             <div class="hero-actions">
-                <a href="#programs" class="btn">Перейти к оформлению (Выбор тарифа)</a>
+                <a href="#programs" class="btn">Перейти к выбору тарифа</a>
                 <a href="#how-to" class="btn btn-outline">Читать руководство экспертов ↓</a>
             </div>
         </div>
@@ -365,11 +390,12 @@
             <h2 itemprop="name" style="text-align: center;">Алгоритм внедрения: как выпустить топливную карту для бизнеса</h2>
             
             <div class="steps-grid">
-                <!-- Шаг 1 -->
+               <!-- Шаг 1 -->
                 <div class="step-card" itemprop="step" itemscope itemtype="http://schema.org/HowToStep">
                     <div class="step-num">01</div>
                     <h3 itemprop="name">Анализ и выбор программы</h3>
                     <p itemprop="text">Ознакомьтесь с тарифными планами в каталоге. Рассчитайте прогнозную себестоимость рейса с учетом географии работы ваших транспортных средств и выберите оптимальные условия.</p>
+                    <a href="#programs-catalog" class="btn-yellow">Открыть каталог программ</a>
                 </div>
                 <!-- Шаг 2 -->
                 <div class="step-card" itemprop="step" itemscope itemtype="http://schema.org/HowToStep">
