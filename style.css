@@ -1,0 +1,359 @@
+ /* ================= БАЗОВЫЕ СТИЛИ И ПЕРЕМЕННЫЕ ================= */
+        :root {
+            --primary-color: #004b87; /* Корпоративный синий */
+            --primary-dark: #002244;
+            --accent-color: #fca311; /* Акцентный оранжевый/золотой */
+            --accent-hover: #e08e0b;
+            --bg-light: #f4f7f9;
+            --bg-white: #ffffff;
+            --text-main: #333333;
+            --text-muted: #555555;
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .bg-light { background-color: var(--bg-light); }
+
+        h2 {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        p { margin-bottom: 16px; }
+
+        /* ================= КНОПКИ ================= */
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+        }
+
+        .btn-outline:hover {
+            background-color: #fff;
+            color: var(--primary-color);
+        }
+
+        /* ================= БЛОК 1: HERO (HEADER) ================= */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+            color: #fff;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 44px;
+            margin-bottom: 24px;
+            line-height: 1.25;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero .subtitle {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            color: #e2e8f0;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ================= СЕТКИ И СПЛИТ-БЛОКИ ================= */
+        .split-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .split-wrapper.reverse-layout {
+            flex-direction: row-reverse;
+        }
+
+        .split-content { flex: 1; }
+        
+        .split-visual {
+            flex: 1;
+            background: #e2e8f0;
+            min-height: 350px;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-weight: bold;
+            border: 2px dashed #cbd5e1;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* ================= БЛОК 2: HOW-TO (ШАГИ) ================= */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .step-card {
+            background: var(--bg-white);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .step-num {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--bg-light);
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            line-height: 1;
+        }
+
+        .step-card h3 {
+            font-size: 20px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-card p {
+            color: var(--text-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ================= СПИСКИ (ФИЧИ) ================= */
+        .feature-list {
+            list-style: none;
+            margin-top: 24px;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 24px;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-color);
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .feature-list h4 {
+            font-size: 18px;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+
+        .feature-list p {
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        /* Список с цифрами (для механики АЗС) */
+        .chrono-list {
+            list-style-type: decimal;
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+        
+        .chrono-list li {
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            padding-left: 10px;
+        }
+
+        /* ================= БЛОК 4: ТАБЫ (USE CASES) ================= */
+        .tabs-container-inner {
+            background: var(--bg-white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            margin-top: 40px;
+        }
+
+        .tabs-nav {
+            display: flex;
+            background-color: var(--bg-light);
+            border-bottom: 1px solid #e2e8f0;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .tabs-nav::-webkit-scrollbar { display: none; }
+
+        .tab-btn {
+            flex: 1;
+            min-width: max-content;
+            padding: 20px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--accent-color);
+            background-color: var(--bg-white);
+        }
+
+        .tab-panels { padding: 40px; }
+        
+        .tab-panel {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .tab-panel.active { display: flex; gap: 40px; align-items: center; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ================= БЛОК 8: FAQ ================= */
+        .faq-wrapper {
+            max-width: 800px;
+            margin: 40px auto 0;
+        }
+
+        details {
+            background: var(--bg-white);
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        summary {
+            padding: 20px;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-color);
+            cursor: pointer;
+            list-style: none;
+            position: relative;
+            padding-right: 50px;
+        }
+
+        summary::after {
+            content: '+';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+        }
+
+        details[open] summary::after { content: '−'; }
+
+        details p {
+            padding: 0 20px 20px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* ================= АДАПТИВНОСТЬ ================= */
+        @media (max-width: 992px) {
+            .split-wrapper, .split-wrapper.reverse-layout, .tab-panel.active {
+                flex-direction: column;
+            }
+            .steps-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 34px; }
+            .split-visual { width: 100%; height: 250px; min-height: 250px; }
+        }
+
+        @media (max-width: 576px) {
+            .hero-actions { flex-direction: column; }
+            .btn { width: 100%; }
+            .tab-panels { padding: 20px; }
+        }
+
+        /* Локальная жёлтая кнопка для карточек шагов */
+        .btn-yellow {
+            display: inline-block;
+            background-color: #FFD700; /* Жёлтый цвет */
+            color: #333333; /* Тёмный текст для контраста и читаемости */
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            margin-top: 16px; /* Отступ от абзаца выше */
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+        
+        .btn-yellow:hover {
+            background-color: #FFC107; /* Более насыщенный жёлтый при наведении */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 193, 7, 0.4);
+        }
