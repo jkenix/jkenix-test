@@ -154,17 +154,7 @@
             position: relative;
         }
 
-        .step-num {
-            font-size: 48px;
-            font-weight: 800;
-            color: var(--bg-light);
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            line-height: 1;
-        }
-
-        .step-card h3 {
+       .step-card h3 {
             font-size: 20px;
             color: var(--primary-black);
             margin-bottom: 15px;
