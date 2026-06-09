@@ -11,6 +11,7 @@
             --text-muted: #555555;
             --border-radius: 12px;
             --transition: all 0.3s ease;
+            --step-color: #686868;
         }
 
         * {
@@ -172,14 +173,10 @@
         }
 
         .step-num {
-                  font-size: 48px;
+                  font-size: 16px;
                   font-weight: 800;
-                  color: var(--bg-light);
-                  position: absolute;
-                  top: 15px;
-                  right: 20px;
+                  color: var(--step-color);
                   line-height: 1;
-                  display: none;
               }
 
         /* ================= СПИСКИ (ФИЧИ) ================= */
