@@ -310,7 +310,6 @@
           font-size: 20px;
           font-weight: 700;
           letter-spacing: 0.5px;
-          filter: grayscale(100%) opacity(0.6);
           transition: all 0.3s ease;
           cursor: default;
       }
