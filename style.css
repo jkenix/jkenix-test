@@ -221,6 +221,17 @@ p { margin-bottom: 16px; color: var(--primary-black); }
     margin-bottom: 10px;
 }
 
+/* ================= СОВЕТ ЭКСПЕРТА (ПЛАШКА ВНИЗУ БЛОКА 2) ================= */
+.expert-advice {
+    background-color: #fff9e6;
+    border-left: 5px solid var(--accent-color);
+    padding: 25px;
+    margin: 40px 0 0 0; /* Отступ сверху от карточек */
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.expert-advice p { margin-bottom: 0; }
+
 /* ================= БЛОК 3: ЭКРАНЫ ЭКОНОМИКИ ================= */
 .economics-intro {
     padding: 80px 0 0 0;
@@ -277,17 +288,6 @@ p { margin-bottom: 16px; color: var(--primary-black); }
     color: var(--primary-dark);
     margin-bottom: 10px;
 }
-
-/* ================= СОВЕТ ЭКСПЕРТА ================= */
-.expert-advice {
-    background-color: #fff9e6;
-    border-left: 5px solid var(--accent-color);
-    padding: 25px;
-    margin: 40px 0;
-    border-radius: 0 var(--border-radius) var(--border-radius) 0;
-}
-
-.expert-advice p { margin-bottom: 0; }
 
 /* ================= ТАБЛИЦЫ ================= */
 .table-responsive {
