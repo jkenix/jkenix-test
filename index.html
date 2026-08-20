@@ -1,574 +1,796 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex, nofollow">
-  
-  <title>КОНЦЕПТЫ BITROID // OBSERVER_VIEW</title>
-  <style>
-    /* ==========================================================================
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="noindex, nofollow" />
+
+        <title>КОНЦЕПТЫ BITROID // OBSERVER_VIEW</title>
+        <style>
+            /* ==========================================================================
        CYBER / ANONYMOUS;CODE THEME TOKENS
        ========================================================================== */
-    :root {
-      --bg-color: #04060a;
-      --bg-panel: rgba(8, 14, 24, 0.88);
-      --cyan-core: #00f0ff;
-      --cyan-glow: rgba(0, 240, 255, 0.45);
-      --magenta-glitch: #ff0055;
-      --magenta-glow: rgba(255, 0, 85, 0.4);
-      --lime-terminal: #00ff66;
-      --text-main: #d1f4ff;
-      --text-muted: #4e6b82;
-      --border-hud: rgba(0, 240, 255, 0.22);
-      --font-mono: "Consolas", "Courier New", "Share Tech Mono", monospace;
-      
-      /* Координаты курсора по умолчанию */
-      --mouse-x: 50vw;
-      --mouse-y: 50vh;
-    }
+            :root {
+                --bg-color: #04060a;
+                --bg-panel: rgba(8, 14, 24, 0.88);
+                --cyan-core: #00f0ff;
+                --cyan-glow: rgba(0, 240, 255, 0.45);
+                --magenta-glitch: #ff0055;
+                --magenta-glow: rgba(255, 0, 85, 0.4);
+                --lime-terminal: #00ff66;
+                --text-main: #d1f4ff;
+                --text-muted: #4e6b82;
+                --border-hud: rgba(0, 240, 255, 0.22);
+                --font-mono:
+                    "Consolas", "Courier New", "Share Tech Mono", monospace;
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+                /* Координаты курсора по умолчанию */
+                --mouse-x: 50vw;
+                --mouse-y: 50vh;
+            }
 
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      font-family: var(--font-mono);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 40px 20px 140px; /* Отступ снизу под угловую цитату */
-      overflow-x: hidden;
-      position: relative;
-    }
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
 
-    /* ==========================================================================
+            body {
+                background-color: var(--bg-color);
+                color: var(--text-main);
+                font-family: var(--font-mono);
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 40px 20px 140px; /* Отступ снизу под угловую цитату */
+                overflow-x: hidden;
+                position: relative;
+            }
+
+            /* ==========================================================================
        ИНТЕРАКТИВНАЯ ПОДСВЕТКА ПОВЕРХНОСТИ (MOUSE TRACKING GLOW)
        ========================================================================== */
-    /* 1. Динамический световой луч на фоне */
-    .ambient-glow {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 2;
-      background: radial-gradient(
-        700px circle at var(--mouse-x) var(--mouse-y),
-        rgba(0, 240, 255, 0.08),
-        rgba(255, 0, 85, 0.03) 40%,
-        transparent 70%
-      );
-      transition: opacity 0.3s ease;
-    }
+            /* 1. Динамический световой луч на фоне */
+            .ambient-glow {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                pointer-events: none;
+                z-index: 2;
+                background: radial-gradient(
+                    700px circle at var(--mouse-x) var(--mouse-y),
+                    rgba(0, 240, 255, 0.08),
+                    rgba(255, 0, 85, 0.03) 40%,
+                    transparent 70%
+                );
+                transition: opacity 0.3s ease;
+            }
 
-    /* 2. Подсветка сетки под курсором */
-    .bg-grid {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-image: 
-        linear-gradient(to right, rgba(0, 240, 255, 0.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0, 240, 255, 0.04) 1px, transparent 1px);
-      background-size: 36px 36px;
-      pointer-events: none;
-      z-index: 1;
-      mask-image: radial-gradient(
-        800px circle at var(--mouse-x) var(--mouse-y),
-        rgba(0, 0, 0, 1) 15%,
-        rgba(0, 0, 0, 0.2) 60%,
-        transparent 100%
-      );
-      -webkit-mask-image: radial-gradient(
-        800px circle at var(--mouse-x) var(--mouse-y),
-        rgba(0, 0, 0, 1) 15%,
-        rgba(0, 0, 0, 0.2) 60%,
-        transparent 100%
-      );
-    }
+            /* 2. Подсветка сетки под курсором */
+            .bg-grid {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-image:
+                    linear-gradient(
+                        to right,
+                        rgba(0, 240, 255, 0.04) 1px,
+                        transparent 1px
+                    ),
+                    linear-gradient(
+                        to bottom,
+                        rgba(0, 240, 255, 0.04) 1px,
+                        transparent 1px
+                    );
+                background-size: 36px 36px;
+                pointer-events: none;
+                z-index: 1;
+                mask-image: radial-gradient(
+                    800px circle at var(--mouse-x) var(--mouse-y),
+                    rgba(0, 0, 0, 1) 15%,
+                    rgba(0, 0, 0, 0.2) 60%,
+                    transparent 100%
+                );
+                -webkit-mask-image: radial-gradient(
+                    800px circle at var(--mouse-x) var(--mouse-y),
+                    rgba(0, 0, 0, 1) 15%,
+                    rgba(0, 0, 0, 0.2) 60%,
+                    transparent 100%
+                );
+            }
 
-    /* ==========================================================================
+            /* ==========================================================================
        CRT SCANLINES & DIGITAL DEFECTS (Ощущение наблюдателя)
        ========================================================================== */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        rgba(18, 16, 26, 0) 50%, 
-        rgba(0, 0, 0, 0.38) 50%
-      ), linear-gradient(
-        90deg,
-        rgba(255, 0, 0, 0.03),
-        rgba(0, 255, 0, 0.01),
-        rgba(0, 0, 255, 0.03)
-      );
-      background-size: 100% 3px, 6px 100%;
-      pointer-events: none;
-      z-index: 99;
-      opacity: 0.85;
-    }
+            body::before {
+                content: "";
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background:
+                    linear-gradient(
+                        rgba(18, 16, 26, 0) 50%,
+                        rgba(0, 0, 0, 0.38) 50%
+                    ),
+                    linear-gradient(
+                        90deg,
+                        rgba(255, 0, 0, 0.03),
+                        rgba(0, 255, 0, 0.01),
+                        rgba(0, 0, 255, 0.03)
+                    );
+                background-size:
+                    100% 3px,
+                    6px 100%;
+                pointer-events: none;
+                z-index: 99;
+                opacity: 0.85;
+            }
 
-    /* ==========================================================================
+            /* ==========================================================================
        MAIN HUD INTERFACE CONTAINER
        ========================================================================== */
-    .hud-frame {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      max-width: 1040px;
-      background: var(--bg-panel);
-      border: 1px solid var(--border-hud);
-      border-radius: 4px;
-      padding: 40px 38px;
-      box-shadow: 
-        0 0 50px rgba(0, 240, 255, 0.06),
-        inset 0 0 25px rgba(0, 240, 255, 0.02);
-      backdrop-filter: blur(10px);
-      overflow: hidden;
-    }
+            .hud-frame {
+                position: relative;
+                z-index: 10;
+                width: 100%;
+                max-width: 1040px;
+                background: var(--bg-panel);
+                border: 1px solid var(--border-hud);
+                border-radius: 4px;
+                padding: 40px 38px;
+                box-shadow:
+                    0 0 50px rgba(0, 240, 255, 0.06),
+                    inset 0 0 25px rgba(0, 240, 255, 0.02);
+                backdrop-filter: blur(10px);
+                overflow: hidden;
+            }
 
-    /* Реактивный отблеск на стекле интерфейса */
-    .hud-frame::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(
-        450px circle at var(--mouse-x) var(--mouse-y),
-        rgba(0, 240, 255, 0.07),
-        transparent 65%
-      );
-      pointer-events: none;
-      z-index: 1;
-    }
+            /* Реактивный отблеск на стекле интерфейса */
+            .hud-frame::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(
+                    450px circle at var(--mouse-x) var(--mouse-y),
+                    rgba(0, 240, 255, 0.07),
+                    transparent 65%
+                );
+                pointer-events: none;
+                z-index: 1;
+            }
 
-    /* Угловые киберпанк-маркеры */
-    .hud-frame::after {
-      content: "";
-      position: absolute;
-      top: -2px; left: -2px; right: -2px; bottom: -2px;
-      border: 2px solid transparent;
-      border-top-color: var(--cyan-core);
-      border-bottom-color: var(--magenta-glitch);
-      pointer-events: none;
-      clip-path: polygon(
-        0 0, 30px 0, 30px 100%, 0 100%, 0 0,
-        100% 0, calc(100% - 30px) 0, calc(100% - 30px) 100%, 100% 100%
-      );
-      z-index: 2;
-    }
+            /* Угловые киберпанк-маркеры */
+            .hud-frame::after {
+                content: "";
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                right: -2px;
+                bottom: -2px;
+                border: 2px solid transparent;
+                border-top-color: var(--cyan-core);
+                border-bottom-color: var(--magenta-glitch);
+                pointer-events: none;
+                clip-path: polygon(
+                    0 0,
+                    30px 0,
+                    30px 100%,
+                    0 100%,
+                    0 0,
+                    100% 0,
+                    calc(100% - 30px) 0,
+                    calc(100% - 30px) 100%,
+                    100% 100%
+                );
+                z-index: 2;
+            }
 
-    /* Верхняя статусная панель */
-    .hud-telemetry {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11px;
-      letter-spacing: 2px;
-      color: var(--cyan-core);
-      text-transform: uppercase;
-      margin-bottom: 24px;
-      padding-bottom: 12px;
-      border-bottom: 1px dashed var(--border-hud);
-      position: relative;
-      z-index: 2;
-    }
+            /* Верхняя статусная панель */
+            .hud-telemetry {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 11px;
+                letter-spacing: 2px;
+                color: var(--cyan-core);
+                text-transform: uppercase;
+                margin-bottom: 24px;
+                padding-bottom: 12px;
+                border-bottom: 1px dashed var(--border-hud);
+                position: relative;
+                z-index: 2;
+            }
 
-    .telemetry-indicator {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
+            .telemetry-indicator {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+            }
 
-    .telemetry-indicator::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      background-color: var(--lime-terminal);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--lime-terminal);
-      animation: pulse 1.5s infinite ease-in-out;
-    }
+            .telemetry-indicator::before {
+                content: "";
+                width: 8px;
+                height: 8px;
+                background-color: var(--lime-terminal);
+                border-radius: 50%;
+                box-shadow: 0 0 8px var(--lime-terminal);
+                animation: pulse 1.5s infinite ease-in-out;
+            }
 
-    /* Заголовок с глитч-эффектом */
-    .hud-header {
-      margin-bottom: 36px;
-      position: relative;
-      z-index: 2;
-    }
+            /* Заголовок с глитч-эффектом */
+            .hud-header {
+                margin-bottom: 36px;
+                position: relative;
+                z-index: 2;
+            }
 
-    .glitch-title {
-      font-size: 38px;
-      font-weight: 900;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: #ffffff;
-      display: inline-block;
-      text-shadow: 
-        2px 0 var(--magenta-glitch),
-        -2px 0 var(--cyan-core);
-      animation: glitch-skew 3.5s infinite linear alternate-reverse;
-    }
+            .glitch-title {
+                font-size: 38px;
+                font-weight: 900;
+                letter-spacing: 4px;
+                text-transform: uppercase;
+                color: #ffffff;
+                display: inline-block;
+                text-shadow:
+                    2px 0 var(--magenta-glitch),
+                    -2px 0 var(--cyan-core);
+                animation: glitch-skew 3.5s infinite linear alternate-reverse;
+            }
 
-    .hud-subtitle {
-      margin-top: 10px;
-      font-size: 13px;
-      color: var(--text-muted);
-      letter-spacing: 1px;
-      line-height: 1.6;
-    }
+            .hud-subtitle {
+                margin-top: 10px;
+                font-size: 13px;
+                color: var(--text-muted);
+                letter-spacing: 1px;
+                line-height: 1.6;
+            }
 
-    .hud-subtitle span {
-      color: var(--cyan-core);
-    }
+            .hud-subtitle span {
+                color: var(--cyan-core);
+            }
 
-    /* Таблица концептов */
-    .table-container {
-      width: 100%;
-      border: 1px solid var(--border-hud);
-      background: rgba(3, 7, 14, 0.95);
-      border-radius: 2px;
-      overflow: hidden;
-      margin-bottom: 24px;
-      position: relative;
-      z-index: 2;
-    }
+            /* Таблица концептов */
+            .table-container {
+                width: 100%;
+                border: 1px solid var(--border-hud);
+                background: rgba(3, 7, 14, 0.95);
+                border-radius: 2px;
+                overflow: hidden;
+                margin-bottom: 24px;
+                position: relative;
+                z-index: 2;
+            }
 
-    .cyber-table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 14px;
-    }
+            .cyber-table {
+                width: 100%;
+                border-collapse: collapse;
+                text-align: left;
+                font-size: 14px;
+            }
 
-    .cyber-table th {
-      background: rgba(0, 240, 255, 0.08);
-      color: var(--cyan-core);
-      padding: 16px 20px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      font-size: 12px;
-      border-bottom: 1px solid var(--border-hud);
-    }
+            .cyber-table th {
+                background: rgba(0, 240, 255, 0.08);
+                color: var(--cyan-core);
+                padding: 16px 20px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                font-size: 12px;
+                border-bottom: 1px solid var(--border-hud);
+            }
 
-    .cyber-table td {
-      padding: 22px 20px;
-      border-bottom: 1px solid rgba(0, 240, 255, 0.08);
-      vertical-align: middle;
-      color: #e5f6ff;
-    }
+            .cyber-table td {
+                padding: 22px 20px;
+                border-bottom: 1px solid rgba(0, 240, 255, 0.08);
+                vertical-align: middle;
+                color: #e5f6ff;
+            }
 
-    .cyber-table tbody tr:hover {
-      background: rgba(0, 240, 255, 0.04);
-    }
+            .cyber-table tbody tr:hover {
+                background: rgba(0, 240, 255, 0.04);
+            }
 
-    .col-link {
-      width: 32%;
-      border-right: 1px dashed rgba(0, 240, 255, 0.15);
-    }
+            .col-link {
+                width: 32%;
+                border-right: 1px dashed rgba(0, 240, 255, 0.15);
+            }
 
-    .link-node {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 14px;
-      color: #ffffff;
-      letter-spacing: 0.5px;
-    }
+            .link-node {
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                text-decoration: none;
+                font-weight: 700;
+                font-size: 14px;
+                color: #ffffff;
+                letter-spacing: 0.5px;
+            }
 
-    .link-node.is-pending {
-      color: #7997aa;
-      cursor: not-allowed;
-      user-select: none;
-    }
+            .link-node.is-pending {
+                color: #7997aa;
+                cursor: not-allowed;
+                user-select: none;
+            }
 
-    .node-tag {
-      font-size: 10px;
-      padding: 2px 6px;
-      background: rgba(255, 0, 85, 0.12);
-      border: 1px solid var(--magenta-glitch);
-      color: var(--magenta-glitch);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
+            .node-tag {
+                font-size: 10px;
+                padding: 2px 6px;
+                background: rgba(255, 0, 85, 0.12);
+                border: 1px solid var(--magenta-glitch);
+                color: var(--magenta-glitch);
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
 
-    .col-desc {
-      width: 68%;
-      color: #a4c0d3;
-      line-height: 1.6;
-      font-size: 13.5px;
-    }
+            .col-desc {
+                width: 68%;
+                color: #a4c0d3;
+                line-height: 1.6;
+                font-size: 13.5px;
+            }
 
-    /* Нижняя строка состояния карточки */
-    .hud-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11px;
-      color: var(--text-muted);
-      padding-top: 14px;
-      border-top: 1px solid rgba(0, 240, 255, 0.1);
-      letter-spacing: 1px;
-      position: relative;
-      z-index: 2;
-    }
+            /* Нижняя строка состояния карточки */
+            .hud-footer {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 11px;
+                color: var(--text-muted);
+                padding-top: 14px;
+                border-top: 1px solid rgba(0, 240, 255, 0.1);
+                letter-spacing: 1px;
+                position: relative;
+                z-index: 2;
+            }
 
-    .hud-footer .status-code {
-      color: var(--lime-terminal);
-    }
+            .hud-footer .status-code {
+                color: var(--lime-terminal);
+            }
 
-    /* ==========================================================================
+            /* ==========================================================================
        МИГАЮЩАЯ ЦИТАТА НАБЛЮДАТЕЛЯ (SAVE POINT TERMINAL)
        ========================================================================== */
-    .savepoint-terminal {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      max-width: 440px;
-      background: rgba(5, 10, 18, 0.92);
-      border: 1px solid var(--magenta-glitch);
-      border-left: 4px solid var(--magenta-glitch);
-      padding: 14px 18px;
-      border-radius: 2px;
-      box-shadow: 
-        0 0 25px rgba(255, 0, 85, 0.2),
-        inset 0 0 15px rgba(255, 0, 85, 0.05);
-      backdrop-filter: blur(6px);
-      z-index: 100;
-      animation: terminal-glow-pulse 4s infinite ease-in-out;
-    }
+            .savepoint-terminal {
+                position: fixed;
+                bottom: 24px;
+                right: 24px;
+                max-width: 440px;
+                background: rgba(5, 10, 18, 0.92);
+                border: 1px solid var(--magenta-glitch);
+                border-left: 4px solid var(--magenta-glitch);
+                padding: 14px 18px;
+                border-radius: 2px;
+                box-shadow:
+                    0 0 25px rgba(255, 0, 85, 0.2),
+                    inset 0 0 15px rgba(255, 0, 85, 0.05);
+                backdrop-filter: blur(6px);
+                z-index: 100;
+                animation: terminal-glow-pulse 4s infinite ease-in-out;
+            }
 
-    .savepoint-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      color: var(--magenta-glitch);
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
+            .savepoint-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 10px;
+                font-weight: 700;
+                letter-spacing: 1.5px;
+                color: var(--magenta-glitch);
+                text-transform: uppercase;
+                margin-bottom: 8px;
+            }
 
-    .savepoint-header__badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
+            .savepoint-header__badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+            }
 
-    .savepoint-header__badge::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      background-color: var(--magenta-glitch);
-      border-radius: 50%;
-      animation: blink-dot 0.8s infinite steps(2, start);
-    }
+            .savepoint-header__badge::before {
+                content: "";
+                width: 6px;
+                height: 6px;
+                background-color: var(--magenta-glitch);
+                border-radius: 50%;
+                animation: blink-dot 0.8s infinite steps(2, start);
+            }
 
-    .savepoint-quote {
-      font-size: 11.5px;
-      line-height: 1.55;
-      color: #ffd6e4;
-      letter-spacing: 0.3px;
-      font-style: italic;
-      position: relative;
-    }
+            .savepoint-quote {
+                font-size: 11.5px;
+                line-height: 1.55;
+                color: #ffd6e4;
+                letter-spacing: 0.3px;
+                font-style: italic;
+                position: relative;
+            }
 
-    .savepoint-quote strong {
-      color: #ffffff;
-      font-weight: 700;
-    }
+            .savepoint-quote strong {
+                color: #ffffff;
+                font-weight: 700;
+            }
 
-    .savepoint-quote::after {
-      content: "█";
-      display: inline-block;
-      margin-left: 4px;
-      color: var(--magenta-glitch);
-      font-size: 10px;
-      animation: cursor-blink 1s infinite;
-    }
+            .savepoint-quote::after {
+                content: "█";
+                display: inline-block;
+                margin-left: 4px;
+                color: var(--magenta-glitch);
+                font-size: 10px;
+                animation: cursor-blink 1s infinite;
+            }
 
-    /* ==========================================================================
+            /* ==========================================================================
        KEYFRAME ANIMATIONS
        ========================================================================== */
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.3; transform: scale(0.85); }
-    }
+            @keyframes pulse {
+                0%,
+                100% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                50% {
+                    opacity: 0.3;
+                    transform: scale(0.85);
+                }
+            }
 
-    @keyframes glitch-skew {
-      0% { transform: skew(0deg); }
-      20% { transform: skew(-1deg); }
-      40% { transform: skew(0.5deg); }
-      60% { transform: skew(-0.5deg); }
-      80% { transform: skew(1.2deg); text-shadow: 3px 0 var(--magenta-glitch), -3px 0 var(--cyan-core); }
-      100% { transform: skew(0deg); }
-    }
+            @keyframes glitch-skew {
+                0% {
+                    transform: skew(0deg);
+                }
+                20% {
+                    transform: skew(-1deg);
+                }
+                40% {
+                    transform: skew(0.5deg);
+                }
+                60% {
+                    transform: skew(-0.5deg);
+                }
+                80% {
+                    transform: skew(1.2deg);
+                    text-shadow:
+                        3px 0 var(--magenta-glitch),
+                        -3px 0 var(--cyan-core);
+                }
+                100% {
+                    transform: skew(0deg);
+                }
+            }
 
-    @keyframes terminal-glow-pulse {
-      0%, 100% {
-        border-color: rgba(255, 0, 85, 0.8);
-        box-shadow: 0 0 20px rgba(255, 0, 85, 0.25);
-      }
-      50% {
-        border-color: rgba(0, 240, 255, 0.6);
-        border-left-color: var(--cyan-core);
-        box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
-      }
-    }
+            @keyframes terminal-glow-pulse {
+                0%,
+                100% {
+                    border-color: rgba(255, 0, 85, 0.8);
+                    box-shadow: 0 0 20px rgba(255, 0, 85, 0.25);
+                }
+                50% {
+                    border-color: rgba(0, 240, 255, 0.6);
+                    border-left-color: var(--cyan-core);
+                    box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
+                }
+            }
 
-    @keyframes blink-dot {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
+            @keyframes blink-dot {
+                0%,
+                100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0;
+                }
+            }
 
-    @keyframes cursor-blink {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0; }
-    }
+            @keyframes cursor-blink {
+                0%,
+                49% {
+                    opacity: 1;
+                }
+                50%,
+                100% {
+                    opacity: 0;
+                }
+            }
 
-    /* Мобильная адаптация */
-    @media (max-width: 768px) {
-      body {
-        padding: 20px 14px 180px;
-      }
-      .hud-frame {
-        padding: 24px 18px;
-      }
-      .glitch-title {
-        font-size: 26px;
-      }
-      .cyber-table, .cyber-table tbody, .cyber-table tr, .cyber-table td, .cyber-table th {
-        display: block;
-      }
-      .cyber-table thead {
-        display: none;
-      }
-      .cyber-table td {
-        width: 100% !important;
-        border-right: none;
-        padding: 14px;
-      }
-      .col-link {
-        border-bottom: 1px dashed rgba(0, 240, 255, 0.15);
-      }
-      .savepoint-terminal {
-        left: 14px;
-        right: 14px;
-        bottom: 14px;
-        max-width: none;
-      }
-    }
-  </style>
-</head>
-<body>
+            /* Мобильная адаптация */
+            @media (max-width: 768px) {
+                body {
+                    padding: 20px 14px 180px;
+                }
+                .hud-frame {
+                    padding: 24px 18px;
+                }
+                .glitch-title {
+                    font-size: 26px;
+                }
+                .cyber-table,
+                .cyber-table tbody,
+                .cyber-table tr,
+                .cyber-table td,
+                .cyber-table th {
+                    display: block;
+                }
+                .cyber-table thead {
+                    display: none;
+                }
+                .cyber-table td {
+                    width: 100% !important;
+                    border-right: none;
+                    padding: 14px;
+                }
+                .col-link {
+                    border-bottom: 1px dashed rgba(0, 240, 255, 0.15);
+                }
+                .savepoint-terminal {
+                    left: 14px;
+                    right: 14px;
+                    bottom: 14px;
+                    max-width: none;
+                }
+            }
+        </style>
 
-  <!-- Динамический свет фона -->
-  <div class="ambient-glow"></div>
+        <!-- Прелоад -->
+        <style>
+            /* ==========================================================================
+   ANONYMOUS;CODE CYBER PRELOADER
+   ========================================================================== */
+            #cyber-preloader {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: #04060a;
+                z-index: 10000;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                font-family: var(--font-mono, monospace);
+                transition:
+                    opacity 0.25s ease,
+                    visibility 0.25s;
+                pointer-events: all;
+            }
 
-  <!-- Фоновая сетка -->
-  <div class="bg-grid"></div>
+            #cyber-preloader.is-loaded {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
 
-  <!-- Главный HUD-контейнер наблюдателя -->
-  <main class="hud-frame">
-    
-    <!-- Верхняя статусная телеметрия -->
-    <header class="hud-telemetry">
-      <div class="telemetry-indicator">
-        <span>OBSERVER_POV // LIVE FEED</span>
-      </div>
-      <div>
-        <span>WORLD_LINE: 1.048596</span>
-      </div>
-      <div>
-        <span>SYS_LOG: #0042</span>
-      </div>
-    </header>
+            .loader-terminal {
+                width: 90%;
+                max-width: 440px;
+                padding: 24px;
+                border: 1px solid rgba(0, 240, 255, 0.35);
+                background: rgba(8, 14, 24, 0.95);
+                box-shadow:
+                    0 0 35px rgba(0, 240, 255, 0.15),
+                    inset 0 0 20px rgba(255, 0, 85, 0.1);
+                position: relative;
+            }
 
-    <!-- Заголовок страницы -->
-    <div class="hud-header">
-      <h1 class="glitch-title">Концепты Bitroid</h1>
-      <p class="hud-subtitle">
-        &gt; Обнаружены точки ветвления структуры портала. Сессия наблюдателя синхронизирована с реестром прототипов: <span>[ACCESS_GRANTED]</span>
-      </p>
-    </div>
+            .loader-terminal::before {
+                content: "[ GAIA_KERNEL // SYSTEM_BOOT ]";
+                position: absolute;
+                top: -10px;
+                left: 14px;
+                background: #04060a;
+                padding: 0 8px;
+                font-size: 10.5px;
+                font-weight: 700;
+                color: var(--magenta-glitch, #ff0055);
+                letter-spacing: 2px;
+            }
 
-    <!-- Таблица концептов -->
-    <div class="table-container">
-      <table class="cyber-table">
-        <thead>
-          <tr>
-            <th>Ссылка</th>
-            <th>Описание</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="col-link">
-              <div class="link-node is-pending">
-                <a href="/uslugi/perenos-sayta/aspro-migrations.html" class="link-node">
-                  <span>Миграции на Аспро</span>
-                  <span class="node-tag" style="border-color: var(--cyan-core); color: var(--cyan-core); background: rgba(0, 240, 255, 0.1);">OPEN</span>
-                </a>
-              </div>
-            </td>
-            <td class="col-desc">
-              Страница в разделе: Услуги -> Перенос Сайта. Объединяет продукты Аспро: Премьер, Аспро: Максимум, Аспро: Лайтшоп, Аспро: Приорити, Аспро: Корпоративный сайт.
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+            .loader-line {
+                font-size: 12.5px;
+                letter-spacing: 1px;
+                margin-bottom: 6px;
+                color: #d1f4ff;
+            }
 
-    <!-- Нижняя статусная панель -->
-    <footer class="hud-footer">
-      <div>TARGET_HOST: https://jkenix.github.io/jkenix-test/</div>
-      <div>STATUS: <span class="status-code">SYNC_STABLE (0 ERR)</span></div>
-    </footer>
+            .loader-line span {
+                color: var(--lime-terminal, #00ff66);
+                font-weight: bold;
+            }
 
-  </main>
+            .loader-bar-wrap {
+                width: 100%;
+                height: 4px;
+                background: rgba(0, 240, 255, 0.15);
+                margin-top: 14px;
+                border-radius: 2px;
+                overflow: hidden;
+            }
 
-  <!-- Мигающая цитата в нижнем углу интерфейса -->
-  <aside class="savepoint-terminal">
-    <div class="savepoint-header">
-      <div class="savepoint-header__badge">
-        <span>OBSERVER_MESSAGE // SAVE_POINT</span>
-      </div>
-      <span>SYS_INT: #GOD_HACK</span>
-    </div>
-    <p class="savepoint-quote">
-      The fact that you've arrived here — rather, to this save point — at this moment in your life is nothing short of a miracle. It delights me to no end. Step through the stage's curtain; rip off the mask of the wizard who pulls the strings. Close the loop. <strong>Hack into God.</strong>
-    </p>
-  </aside>
+            .loader-bar-fill {
+                height: 100%;
+                width: 0%;
+                background: linear-gradient(90deg, #00f0ff, #ff0055);
+                box-shadow: 0 0 10px #00f0ff;
+                animation: cyber-progress 0.75s cubic-bezier(0.2, 0.8, 0.2, 1)
+                    forwards;
+            }
 
-  <!-- Скрипт отслеживания движения мыши и позиционирования подсветки -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // Обновляем CSS-переменные положения курсора
-      window.addEventListener('pointermove', function (e) {
-        document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px');
-        document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px');
-      }, { passive: true });
-    });
-  </script>
+            @keyframes cyber-progress {
+                0% {
+                    width: 0%;
+                }
+                45% {
+                    width: 68%;
+                }
+                85% {
+                    width: 92%;
+                }
+                100% {
+                    width: 100%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Экран быстрой загрузки в стиле Anonymous;Code -->
+        <div id="cyber-preloader">
+            <div class="loader-terminal">
+                <div class="loader-line">> GAIA_OS // SYNCHRONIZING...</div>
+                <div class="loader-line">
+                    > WORLD_LINE: <span>1.048596</span>
+                </div>
+                <div class="loader-line">
+                    > SAVE_POINT [<span>BITROID.ARCHIVE</span>] LOADED
+                </div>
+                <div class="loader-bar-wrap">
+                    <div class="loader-bar-fill"></div>
+                </div>
+            </div>
+        </div>
 
-</body>
+        <!-- Динамический свет фона -->
+        <div class="ambient-glow"></div>
+
+        <!-- Фоновая сетка -->
+        <div class="bg-grid"></div>
+
+        <!-- Главный HUD-контейнер наблюдателя -->
+        <main class="hud-frame">
+            <!-- Верхняя статусная телеметрия -->
+            <header class="hud-telemetry">
+                <div class="telemetry-indicator">
+                    <span>OBSERVER_POV // LIVE FEED</span>
+                </div>
+                <div>
+                    <span>WORLD_LINE: 1.048596</span>
+                </div>
+                <div>
+                    <span>SYS_LOG: #0042</span>
+                </div>
+            </header>
+
+            <!-- Заголовок страницы -->
+            <div class="hud-header">
+                <h1 class="glitch-title">Концепты Bitroid</h1>
+                <p class="hud-subtitle">
+                    &gt; Обнаружены точки ветвления структуры портала. Сессия
+                    наблюдателя синхронизирована с реестром прототипов:
+                    <span>[ACCESS_GRANTED]</span>
+                </p>
+            </div>
+
+            <!-- Таблица концептов -->
+            <div class="table-container">
+                <table class="cyber-table">
+                    <thead>
+                        <tr>
+                            <th>Ссылка</th>
+                            <th>Описание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-link">
+                                <div class="link-node is-pending">
+                                    <a
+                                        href="./uslugi/perenos-sayta/aspro-migrations.html"
+                                        class="link-node">
+                                        <span>Миграции на Аспро</span>
+                                        <span
+                                            class="node-tag"
+                                            style="
+                                                border-color: var(--cyan-core);
+                                                color: var(--cyan-core);
+                                                background: rgba(
+                                                    0,
+                                                    240,
+                                                    255,
+                                                    0.1
+                                                );
+                                            "
+                                            >OPEN</span
+                                        >
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="col-desc">
+                                Страница в разделе: Услуги -> Перенос Сайта.
+                                Объединяет продукты Аспро: Премьер, Аспро:
+                                Максимум, Аспро: Лайтшоп, Аспро: Приорити,
+                                Аспро: Корпоративный сайт.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Нижняя статусная панель -->
+            <footer class="hud-footer">
+                <div>TARGET_HOST: https://jkenix.github.io/jkenix-test/</div>
+                <div>
+                    STATUS: <span class="status-code">SYNC_STABLE (0 ERR)</span>
+                </div>
+            </footer>
+        </main>
+
+        <!-- Мигающая цитата в нижнем углу интерфейса -->
+        <aside class="savepoint-terminal">
+            <div class="savepoint-header">
+                <div class="savepoint-header__badge">
+                    <span>OBSERVER_MESSAGE // SAVE_POINT</span>
+                </div>
+                <span>SYS_INT: #GOD_HACK</span>
+            </div>
+            <p class="savepoint-quote">
+                The fact that you've arrived here — rather, to this save point —
+                at this moment in your life is nothing short of a miracle. It
+                delights me to no end. Step through the stage's curtain; rip off
+                the mask of the wizard who pulls the strings. Close the loop.
+                <strong>Hack into God.</strong>
+            </p>
+        </aside>
+
+        <!-- Скрипт отслеживания движения мыши и позиционирования подсветки -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Обновляем CSS-переменные положения курсора
+                window.addEventListener(
+                    "pointermove",
+                    function (e) {
+                        document.documentElement.style.setProperty(
+                            "--mouse-x",
+                            e.clientX + "px",
+                        );
+                        document.documentElement.style.setProperty(
+                            "--mouse-y",
+                            e.clientY + "px",
+                        );
+                    },
+                    { passive: true },
+                );
+            });
+        </script>
+
+        <!-- Прелоад -->
+        <script>
+            window.addEventListener("load", function () {
+                setTimeout(function () {
+                    var preloader = document.getElementById("cyber-preloader");
+                    if (preloader) {
+                        preloader.classList.add("is-loaded");
+                    }
+                }, 150); // 150 миллисекунд — быстрый эффект появления без раздражающего ожидания
+            });
+        </script>
+    </body>
 </html>
