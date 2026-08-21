@@ -7,6 +7,23 @@
 
         <title>Концепт "Миграции на Аспро"</title>
 
+        <link
+            rel="icon"
+            type="image/png"
+            href="https://jkenix.github.io/jkenix-test/img/favicon-96x96.png"
+            sizes="96x96" />
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href="https://jkenix.github.io/jkenix-test/img/favicon.svg" />
+        <link
+            rel="shortcut icon"
+            href="https://jkenix.github.io/jkenix-test/img/favicon.ico" />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="https://jkenix.github.io/jkenix-test/img/apple-touch-icon.png" />
+
         <!-- Главные стили -->
         <style>
             /* ==========================================================================
@@ -2310,295 +2327,351 @@
                         </tbody>
                     </table>
                 </div>
-              
             </div>
         </section>
 
         <section class="aspro-workflow-section">
-  <style>
-    /* ==========================================================================
+            <style>
+                /* ==========================================================================
        Стили блока этапов миграции (по образцу скриншота)
        ========================================================================== */
-    .aspro-workflow-section {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      /* Мягкий градиентный фон с бирюзово-голубым свечением как на скрине */
-      background: radial-gradient(circle at 85% 20%, rgba(209, 250, 229, 0.5) 0%, transparent 50%),
-                  radial-gradient(circle at 10% 80%, rgba(224, 242, 254, 0.6) 0%, transparent 45%),
-                  #f1f5f9;
-      color: #0f172a;
-      padding: 70px 20px;
-      line-height: 1.5;
-      box-sizing: border-box;
-    }
+                .aspro-workflow-section {
+                    font-family:
+                        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                        "Helvetica Neue", Arial, sans-serif;
+                    /* Мягкий градиентный фон с бирюзово-голубым свечением как на скрине */
+                    background:
+                        radial-gradient(
+                            circle at 85% 20%,
+                            rgba(209, 250, 229, 0.5) 0%,
+                            transparent 50%
+                        ),
+                        radial-gradient(
+                            circle at 10% 80%,
+                            rgba(224, 242, 254, 0.6) 0%,
+                            transparent 45%
+                        ),
+                        #f1f5f9;
+                    color: #0f172a;
+                    padding: 70px 20px;
+                    line-height: 1.5;
+                    box-sizing: border-box;
+                }
 
-    .aspro-workflow-container {
-      max-width: 1360px;
-      margin: 0 auto;
-    }
+                .aspro-workflow-container {
+                    max-width: 1360px;
+                    margin: 0 auto;
+                }
 
-    /* Шапка блока */
-    .aspro-workflow__header {
-      margin-bottom: 40px;
-      max-width: 950px;
-    }
+                /* Шапка блока */
+                .aspro-workflow__header {
+                    margin-bottom: 40px;
+                    max-width: 950px;
+                }
 
-    .aspro-workflow__title {
-      font-size: 36px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin: 0 0 14px 0;
-      color: #0f172a;
-      line-height: 1.25;
-    }
+                .aspro-workflow__title {
+                    font-size: 36px;
+                    font-weight: 800;
+                    letter-spacing: -0.02em;
+                    margin: 0 0 14px 0;
+                    color: #0f172a;
+                    line-height: 1.25;
+                }
 
-    .aspro-workflow__lead {
-      font-size: 16px;
-      color: #334155;
-      margin: 0;
-      line-height: 1.6;
-    }
+                .aspro-workflow__lead {
+                    font-size: 16px;
+                    color: #334155;
+                    margin: 0;
+                    line-height: 1.6;
+                }
 
-    /* Сетка карточек (3 в верхнем ряду, 2 в нижнем) */
-    .aspro-workflow__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-bottom: 44px;
-      align-items: stretch;
-    }
+                /* Сетка карточек (3 в верхнем ряду, 2 в нижнем) */
+                .aspro-workflow__grid {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 20px;
+                    margin-bottom: 44px;
+                    align-items: stretch;
+                }
 
-    .aspro-workflow-card {
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 24px 22px 24px;
-      box-shadow: 0 6px 20px -4px rgba(15, 23, 42, 0.04);
-      border: 1px solid rgba(226, 232, 240, 0.8);
-      display: flex;
-      flex-direction: column;
-      box-sizing: border-box;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
+                .aspro-workflow-card {
+                    background: #ffffff;
+                    border-radius: 16px;
+                    padding: 24px 22px 24px;
+                    box-shadow: 0 6px 20px -4px rgba(15, 23, 42, 0.04);
+                    border: 1px solid rgba(226, 232, 240, 0.8);
+                    display: flex;
+                    flex-direction: column;
+                    box-sizing: border-box;
+                    transition:
+                        transform 0.2s ease,
+                        box-shadow 0.2s ease;
+                }
 
-    .aspro-workflow-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 28px -6px rgba(15, 23, 42, 0.08);
-      border-color: #cbd5e1;
-    }
+                .aspro-workflow-card:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 14px 28px -6px rgba(15, 23, 42, 0.08);
+                    border-color: #cbd5e1;
+                }
 
-    .aspro-workflow-card__head {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 14px;
-      min-height: 48px;
-    }
+                .aspro-workflow-card__head {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    gap: 12px;
+                    margin-bottom: 14px;
+                    min-height: 48px;
+                }
 
-    .aspro-workflow-card__title {
-      font-size: 16.5px;
-      font-weight: 700;
-      color: #0f172a;
-      line-height: 1.35;
-      margin: 0;
-    }
+                .aspro-workflow-card__title {
+                    font-size: 16.5px;
+                    font-weight: 700;
+                    color: #0f172a;
+                    line-height: 1.35;
+                    margin: 0;
+                }
 
-    .aspro-workflow-card__num {
-      font-size: 16px;
-      font-weight: 800;
-      color: #0f172a;
-      line-height: 1.35;
-      flex-shrink: 0;
-      letter-spacing: -0.5px;
-    }
+                .aspro-workflow-card__num {
+                    font-size: 16px;
+                    font-weight: 800;
+                    color: #0f172a;
+                    line-height: 1.35;
+                    flex-shrink: 0;
+                    letter-spacing: -0.5px;
+                }
 
-    .aspro-workflow-card__desc {
-      font-size: 13.5px;
-      color: #475569;
-      line-height: 1.55;
-      margin: 0 0 16px 0;
-      flex-grow: 1;
-    }
+                .aspro-workflow-card__desc {
+                    font-size: 13.5px;
+                    color: #475569;
+                    line-height: 1.55;
+                    margin: 0 0 16px 0;
+                    flex-grow: 1;
+                }
 
-    .aspro-workflow-card__desc code {
-      background-color: #f1f5f9;
-      color: #0284c7;
-      padding: 2px 5px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-family: Consolas, Monaco, monospace;
-    }
+                .aspro-workflow-card__desc code {
+                    background-color: #f1f5f9;
+                    color: #0284c7;
+                    padding: 2px 5px;
+                    border-radius: 4px;
+                    font-size: 12px;
+                    font-family: Consolas, Monaco, monospace;
+                }
 
-    /* Блок результата этапа */
-    .aspro-workflow-card__result {
-      background-color: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-left: 3px solid #0284c7;
-      border-radius: 8px;
-      padding: 10px 12px;
-      font-size: 13px;
-      color: #334155;
-      line-height: 1.45;
-    }
+                /* Блок результата этапа */
+                .aspro-workflow-card__result {
+                    background-color: #f8fafc;
+                    border: 1px solid #e2e8f0;
+                    border-left: 3px solid #0284c7;
+                    border-radius: 8px;
+                    padding: 10px 12px;
+                    font-size: 13px;
+                    color: #334155;
+                    line-height: 1.45;
+                }
 
-    .aspro-workflow-card__result strong {
-      color: #0f172a;
-    }
+                .aspro-workflow-card__result strong {
+                    color: #0f172a;
+                }
 
-        .aspro-workflow__btn {
-      display: inline-flex;
-      align-items: center;
-      min-width: 320px;
-      background-color: #27a768;
-      color: #ffffff;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 16px 36px;
-      border-radius: 12px;
-      font-family: inherit;
-      font-size: 16px;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      box-sizing: border-box;
-      box-shadow: 0 4px 14px rgba(39, 167, 104, 0.25);
-      transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
-    }
+                .aspro-workflow__btn {
+                    display: inline-flex;
+                    align-items: center;
+                    min-width: 320px;
+                    background-color: #27a768;
+                    color: #ffffff;
+                    align-items: center;
+                    justify-content: center;
+                    text-align: center;
+                    padding: 16px 36px;
+                    border-radius: 12px;
+                    font-family: inherit;
+                    font-size: 16px;
+                    font-weight: 700;
+                    border: none;
+                    cursor: pointer;
+                    box-sizing: border-box;
+                    box-shadow: 0 4px 14px rgba(39, 167, 104, 0.25);
+                    transition:
+                        background-color 0.2s ease,
+                        transform 0.1s ease,
+                        box-shadow 0.2s ease;
+                }
 
-    .aspro-workflow__btn:hover {
-      background-color: #21915a;
-      box-shadow: 0 6px 18px rgba(39, 167, 104, 0.35);
-    }
+                .aspro-workflow__btn:hover {
+                    background-color: #21915a;
+                    box-shadow: 0 6px 18px rgba(39, 167, 104, 0.35);
+                }
 
-    .aspro-workflow__btn:active {
-      transform: scale(0.98);
-    }
+                .aspro-workflow__btn:active {
+                    transform: scale(0.98);
+                }
 
-    /* ==========================================================================
+                /* ==========================================================================
        Адаптивность
        ========================================================================== */
-    @media (max-width: 1100px) {
-      .aspro-workflow__grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .aspro-workflow-card__head {
-        min-height: auto;
-      }
-    }
+                @media (max-width: 1100px) {
+                    .aspro-workflow__grid {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+                    .aspro-workflow-card__head {
+                        min-height: auto;
+                    }
+                }
 
-    @media (max-width: 768px) {
-      .aspro-workflow-section {
-        padding: 45px 16px;
-      }
-      .aspro-workflow__title {
-        font-size: 26px;
-      }
-      .aspro-workflow__grid {
-        grid-template-columns: 1fr;
-        gap: 14px;
-      }
-      .aspro-workflow-card {
-        padding: 20px 18px;
-      }
-      .aspro-workflow__btn {
-        width: 100%;
-        min-width: unset;
-      }
-    }
-  </style>
+                @media (max-width: 768px) {
+                    .aspro-workflow-section {
+                        padding: 45px 16px;
+                    }
+                    .aspro-workflow__title {
+                        font-size: 26px;
+                    }
+                    .aspro-workflow__grid {
+                        grid-template-columns: 1fr;
+                        gap: 14px;
+                    }
+                    .aspro-workflow-card {
+                        padding: 20px 18px;
+                    }
+                    .aspro-workflow__btn {
+                        width: 100%;
+                        min-width: unset;
+                    }
+                }
+            </style>
 
-  <div class="aspro-workflow-container">
-    
-    <!-- Шапка раздела H2 -->
-    <header class="aspro-workflow__header">
-      <h2 class="aspro-workflow__title">Этапы миграции: от технического аудита до запуска проекта</h2>
-      <p class="aspro-workflow__lead">
-        Переезд на решение Аспро проходит по четкому 5-шаговому регламенту. Вы контролируете каждый этап и принимаете промежуточные результаты по согласованным чек-листам.
-      </p>
-    </header>
+            <div class="aspro-workflow-container">
+                <!-- Шапка раздела H2 -->
+                <header class="aspro-workflow__header">
+                    <h2 class="aspro-workflow__title">
+                        Этапы миграции: от технического аудита до запуска
+                        проекта
+                    </h2>
+                    <p class="aspro-workflow__lead">
+                        Переезд на решение Аспро проходит по четкому 5-шаговому
+                        регламенту. Вы контролируете каждый этап и принимаете
+                        промежуточные результаты по согласованным чек-листам.
+                    </p>
+                </header>
 
-    <!-- Сетка из 5 карточек-шагов -->
-    <div class="aspro-workflow__grid">
-      
-      <!-- Шаг 01 -->
-      <article class="aspro-workflow-card">
-        <div class="aspro-workflow-card__head">
-          <h3 class="aspro-workflow-card__title">Предпроектный аудит и техническое задание</h3>
-          <span class="aspro-workflow-card__num">01.</span>
-        </div>
-        <p class="aspro-workflow-card__desc">
-          Анализируем архитектуру текущего сайта, структуру базы 1С/ERP и объем каталога. Подбираем оптимальную редакцию 1С-Битрикс и решение Аспро под ваши бизнес-задачи.
-        </p>
-        <div class="aspro-workflow-card__result">
-          <strong>📋 Результат этапа:</strong> Детальное техническое задание, матрица рисков и согласованная смета проекта.
-        </div>
-      </article>
+                <!-- Сетка из 5 карточек-шагов -->
+                <div class="aspro-workflow__grid">
+                    <!-- Шаг 01 -->
+                    <article class="aspro-workflow-card">
+                        <div class="aspro-workflow-card__head">
+                            <h3 class="aspro-workflow-card__title">
+                                Предпроектный аудит и техническое задание
+                            </h3>
+                            <span class="aspro-workflow-card__num">01.</span>
+                        </div>
+                        <p class="aspro-workflow-card__desc">
+                            Анализируем архитектуру текущего сайта, структуру
+                            базы 1С/ERP и объем каталога. Подбираем оптимальную
+                            редакцию 1С-Битрикс и решение Аспро под ваши
+                            бизнес-задачи.
+                        </p>
+                        <div class="aspro-workflow-card__result">
+                            <strong>📋 Результат этапа:</strong> Детальное
+                            техническое задание, матрица рисков и согласованная
+                            смета проекта.
+                        </div>
+                    </article>
 
-      <!-- Шаг 02 -->
-      <article class="aspro-workflow-card">
-        <div class="aspro-workflow-card__head">
-          <h3 class="aspro-workflow-card__title">Развертывание на тестовом сервере</h3>
-          <span class="aspro-workflow-card__num">02.</span>
-        </div>
-        <p class="aspro-workflow-card__desc">
-          Устанавливаем 1С-Битрикс и готовое решение Аспро на изолированной тестовой площадке. Действующий сайт продолжает работать в штатном режиме и принимать заказы.
-        </p>
-        <div class="aspro-workflow-card__result">
-          <strong>📋 Результат этапа:</strong> Закрытый тестовый сервер с базовой конфигурацией решения и доступом для вашей команды.
-        </div>
-      </article>
+                    <!-- Шаг 02 -->
+                    <article class="aspro-workflow-card">
+                        <div class="aspro-workflow-card__head">
+                            <h3 class="aspro-workflow-card__title">
+                                Развертывание на тестовом сервере
+                            </h3>
+                            <span class="aspro-workflow-card__num">02.</span>
+                        </div>
+                        <p class="aspro-workflow-card__desc">
+                            Устанавливаем 1С-Битрикс и готовое решение Аспро на
+                            изолированной тестовой площадке. Действующий сайт
+                            продолжает работать в штатном режиме и принимать
+                            заказы.
+                        </p>
+                        <div class="aspro-workflow-card__result">
+                            <strong>📋 Результат этапа:</strong> Закрытый
+                            тестовый сервер с базовой конфигурацией решения и
+                            доступом для вашей команды.
+                        </div>
+                    </article>
 
-      <!-- Шаг 03 -->
-      <article class="aspro-workflow-card">
-        <div class="aspro-workflow-card__head">
-          <h3 class="aspro-workflow-card__title">Миграция данных и синхронизация 1С/ERP</h3>
-          <span class="aspro-workflow-card__num">03.</span>
-        </div>
-        <p class="aspro-workflow-card__desc">
-          Переносим номенклатуру, торговые предложения (SKU), выносим характеристики в Highload-справочники. Настраиваем и отлаживаем двусторонний обмен по протоколу CommerceML.
-        </p>
-        <div class="aspro-workflow-card__result">
-          <strong>📋 Результат этапа:</strong> Протокол сверки контрольных сумм по ценам и остаткам, подтверждающий корректность переноса каталога.
-        </div>
-      </article>
+                    <!-- Шаг 03 -->
+                    <article class="aspro-workflow-card">
+                        <div class="aspro-workflow-card__head">
+                            <h3 class="aspro-workflow-card__title">
+                                Миграция данных и синхронизация 1С/ERP
+                            </h3>
+                            <span class="aspro-workflow-card__num">03.</span>
+                        </div>
+                        <p class="aspro-workflow-card__desc">
+                            Переносим номенклатуру, торговые предложения (SKU),
+                            выносим характеристики в Highload-справочники.
+                            Настраиваем и отлаживаем двусторонний обмен по
+                            протоколу CommerceML.
+                        </p>
+                        <div class="aspro-workflow-card__result">
+                            <strong>📋 Результат этапа:</strong> Протокол сверки
+                            контрольных сумм по ценам и остаткам, подтверждающий
+                            корректность переноса каталога.
+                        </div>
+                    </article>
 
-      <!-- Шаг 04 -->
-      <article class="aspro-workflow-card">
-        <div class="aspro-workflow-card__head">
-          <h3 class="aspro-workflow-card__title">Настройка интерфейса, SEO-структуры и CRM</h3>
-          <span class="aspro-workflow-card__num">04.</span>
-        </div>
-        <p class="aspro-workflow-card__desc">
-          Адаптируем дизайн решения под фирменный стиль компании, настраиваем карту 301-редиректов на веб-сервере, SEO-шаблоны инфоблоков, подключаем веб-формы к CRM и фискализацию по 54-ФЗ.
-        </p>
-        <div class="aspro-workflow-card__result">
-          <strong>📋 Результат этапа:</strong> Полностью укомплектованный сайт на тестовом сервере, прошедший валидацию редиректов и форм.
-        </div>
-      </article>
+                    <!-- Шаг 04 -->
+                    <article class="aspro-workflow-card">
+                        <div class="aspro-workflow-card__head">
+                            <h3 class="aspro-workflow-card__title">
+                                Настройка интерфейса, SEO-структуры и CRM
+                            </h3>
+                            <span class="aspro-workflow-card__num">04.</span>
+                        </div>
+                        <p class="aspro-workflow-card__desc">
+                            Адаптируем дизайн решения под фирменный стиль
+                            компании, настраиваем карту 301-редиректов на
+                            веб-сервере, SEO-шаблоны инфоблоков, подключаем
+                            веб-формы к CRM и фискализацию по 54-ФЗ.
+                        </p>
+                        <div class="aspro-workflow-card__result">
+                            <strong>📋 Результат этапа:</strong> Полностью
+                            укомплектованный сайт на тестовом сервере, прошедший
+                            валидацию редиректов и форм.
+                        </div>
+                    </article>
 
-      <!-- Шаг 05 -->
-      <article class="aspro-workflow-card">
-        <div class="aspro-workflow-card__head">
-          <h3 class="aspro-workflow-card__title">Тестирование и переключение домена</h3>
-          <span class="aspro-workflow-card__num">05.</span>
-        </div>
-        <p class="aspro-workflow-card__desc">
-          За 48 часов до запуска уменьшаем время обновления DNS-записей до 300 секунд. Проводим приемочное тестирование по чек-листу. В часы минимального трафика дозаливаем дельту свежих заказов, переключаем A-записи домена на новый сервер (с планом отката за 15 минут) и запускаем непрерывный анализ серверных логов.
-        </p>
-        <div class="aspro-workflow-card__result">
-          <strong>📋 Результат этапа:</strong> Запущенный сайт на боевом домене без остановки продаж и подписанный акт сдачи-приемки работ.
-        </div>
-      </article>
+                    <!-- Шаг 05 -->
+                    <article class="aspro-workflow-card">
+                        <div class="aspro-workflow-card__head">
+                            <h3 class="aspro-workflow-card__title">
+                                Тестирование и переключение домена
+                            </h3>
+                            <span class="aspro-workflow-card__num">05.</span>
+                        </div>
+                        <p class="aspro-workflow-card__desc">
+                            За 48 часов до запуска уменьшаем время обновления
+                            DNS-записей до 300 секунд. Проводим приемочное
+                            тестирование по чек-листу. В часы минимального
+                            трафика дозаливаем дельту свежих заказов,
+                            переключаем A-записи домена на новый сервер (с
+                            планом отката за 15 минут) и запускаем непрерывный
+                            анализ серверных логов.
+                        </p>
+                        <div class="aspro-workflow-card__result">
+                            <strong>📋 Результат этапа:</strong> Запущенный сайт
+                            на боевом домене без остановки продаж и подписанный
+                            акт сдачи-приемки работ.
+                        </div>
+                    </article>
+                </div>
 
-    </div>
-
-    <!-- Кнопка действия -->
-    <div class="aspro-workflow__action">
-      <button type="button" class="aspro-workflow__btn">Заказать аудит</button>
-    </div>
-
-  </div>
-</section>
+                <!-- Кнопка действия -->
+                <div class="aspro-workflow__action">
+                    <button type="button" class="aspro-workflow__btn">
+                        Заказать аудит
+                    </button>
+                </div>
+            </div>
+        </section>
 
         <div class="concept-offer concept-offer__footer">
             <h1>Концепт страницы "Миграции на Аспро"</h1>
